@@ -2,8 +2,8 @@
 
 !theme spacelab
 
-skinparam backgroundColor #EEEBDC
-skinparam CaptionFontColor #000
+skinparam backgroundColor #202020
+skinparam CaptionFontColor #FFF
 skinparam CaptionFontSize 18
 
 header
