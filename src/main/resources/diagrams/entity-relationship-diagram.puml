@@ -1,0 +1,165 @@
+@startuml Entity Relationship Diagram
+
+!theme spacelab
+
+skinparam backgroundColor #EEEBDC
+skinparam CaptionFontColor #000
+skinparam CaptionFontSize 18
+
+header
+
+end header
+
+footer
+
+end footer
+
+title Quiz API
+
+caption
+Entity Relationship Diagram
+end caption
+
+left to right direction
+
+class Category {
+    - Long id
+    - String name    
+    - Timestamp createdAt
+    - Timestamp updatedAt
+    + Long getId()
+    + void setId(Long id)
+    + String getName()
+    + void setName(String name)
+    + Timestamp getCreatedAt()
+    + Timestamp getUpdatedAt()
+}
+
+class Quiz {
+    - Long id
+    - String name    
+    - Category category
+    - Timestamp createdAt
+    - Timestamp updatedAt
+    + Long getId()
+    + void setId(Long id)
+    + String getName()
+    + void setName(String name)
+    + Category getCategory()
+    + void setCategory(Category category)
+    + Timestamp getCreatedAt()
+    + Timestamp getUpdatedAt()
+} 
+
+class Question {
+    - Long id
+    - String text
+    - Quiz quiz
+    - Byte value
+    - Timestamp createdAt
+    - Timestamp updatedAt
+    + Long getId()
+    + void setId(Long id)
+    + String getText()
+    + void setText(String text)
+    + Quiz getQuiz()
+    + void setQuiz(Quiz quiz)
+    + Byte getValue()
+    + void setValue(Byte value)
+    + Timestamp getCreatedAt()
+    + Timestamp getUpdatedAt()
+}
+
+class Answer {
+    - Long id
+    - String text
+    - Question question    
+    - Boolean correct
+    - Timestamp createdAt
+    - Timestamp updatedAt
+    + Long getId()
+    + void setId(Long id)
+    + String getText()
+    + void setText(String text)
+    + Question getQuestion()
+    + void setQuestion(Question question)
+    + Boolean isCorrect()
+    + void setCorrect(Boolean correct)
+    + Timestamp getCreatedAt()
+    + Timestamp getUpdatedAt()
+}
+
+class  User {
+    - Long id
+    - String email
+    - String firstName
+    - String LastName
+    - Gender gender
+    - Timestamp createdAt
+    - Timestamp updatedAt
+    + Long getId()
+    + void setId(Long id)
+    + String getEmail()
+    + void setEmail(String email)
+    + String getFirstName()
+    + void setFirstName(String firstName)
+    + String getLastName()
+    + void setLastName(String lastName)
+    + Gender getGender()
+    + void setGender(Gender gender)
+    + Timestamp getCreatedAt()
+    + Timestamp getUpdatedAt()
+}
+
+class  UserQuiz {
+    - Long id
+    - User user
+    - Quiz quiz
+    - Timestamp createdAt
+    - Timestamp updatedAt
+    + Long getId()
+    + void setId(Long id)
+    + User getUser()
+    + void setUser(User user)
+    + Quiz getQuiz()
+    + void setQuiz(Quiz quiz)
+    + Timestamp getCreatedAt()
+    + Timestamp getUpdatedAt()
+}
+
+class  UserAnswer {
+    - Long id
+    - UserQuiz userQuiz
+    - Question question
+    - Answer answer
+    - Timestamp createdAt
+    - Timestamp updatedAt
+    + Long getId()
+    + void setId(Long id)
+    + UserQuiz getUserQuiz()
+    + void setUserQuiz(UserQuiz userQuiz)
+    + Question getQuestion()
+    + void setQuestion(Question question)
+    + Answer getAnswer()
+    + void setAnswer(Answer answer)
+    + Timestamp getCreatedAt()
+    + Timestamp getUpdatedAt()
+}
+
+enum Gender {
+    FEMALE
+    MALE
+    OTHER
+}
+
+Category "1" *-- "many" Quiz
+Quiz "1" *-- "many" Question
+Question "1" *-- "many" Answer
+Gender "1" --* "many" User
+User "1" --* "many" UserQuiz
+Quiz "1" --* "many" UserQuiz
+UserQuiz "1" *-- "many" UserAnswer
+Question "1" *-- "many" UserAnswer
+Answer "1" *-- "many" UserAnswer
+
+@enduml
