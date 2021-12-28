@@ -1,5 +1,6 @@
-package com.orbanszlrd.quizapi.category;
+package com.orbanszlrd.quizapi.question;
 
+import com.orbanszlrd.quizapi.answer.Answer;
 import com.orbanszlrd.quizapi.quiz.Quiz;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,23 +16,23 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Category {
+public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    public Long id;
+    public String text;
 
-    private String name;
+    @ManyToOne
+    public Quiz quiz;
 
-    @OneToMany(mappedBy = "category")
-    private List<Quiz> quizzes;
+    @OneToMany(mappedBy = "question")
+    private List<Answer> answers;
+
+    public Byte value;
 
     @CreationTimestamp
     private Timestamp createdAt;
 
     @UpdateTimestamp
     private Timestamp updatedAt;
-
-    public Category(String name) {
-        this.name = name;
-    }
 }
