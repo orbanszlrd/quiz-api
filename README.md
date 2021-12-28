@@ -1,2 +1,1 @@
-# quiz-api
-Quiz API
+# Quiz API
