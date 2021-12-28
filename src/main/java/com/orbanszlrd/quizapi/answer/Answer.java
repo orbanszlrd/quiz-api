@@ -1,7 +1,6 @@
-package com.orbanszlrd.quizapi.question;
+package com.orbanszlrd.quizapi.answer;
 
-import com.orbanszlrd.quizapi.answer.Answer;
-import com.orbanszlrd.quizapi.quiz.Quiz;
+import com.orbanszlrd.quizapi.question.Question;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,25 +9,22 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Question {
+public class Answer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
-    public String text;
+    private Long id;
+
+    private String text;
 
     @ManyToOne
-    public Quiz quiz;
+    private Question question;
 
-    @OneToMany(mappedBy = "question")
-    private List<Answer> answers;
-
-    public Byte value;
+    private Boolean correct;
 
     @CreationTimestamp
     private Timestamp createdAt;
