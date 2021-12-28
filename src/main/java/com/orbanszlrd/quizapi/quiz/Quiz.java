@@ -23,6 +23,8 @@ public class Quiz {
 
     private String name;
 
+    private Integer timeLimit;
+
     @ManyToOne
     private Category category;
 
