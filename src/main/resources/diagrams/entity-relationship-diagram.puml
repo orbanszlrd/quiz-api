@@ -105,6 +105,7 @@ class  User {
     - String email
     - String firstName
     - String LastName
+    - Date dateOfBirth
     - Gender gender
     - Timestamp createdAt
     - Timestamp updatedAt
@@ -116,6 +117,8 @@ class  User {
     + void setFirstName(String firstName)
     + String getLastName()
     + void setLastName(String lastName)
+    + Date getDateOfBirth()
+    + void setDateOfBirth(Date dateOfBirth)
     + Gender getGender()
     + void setGender(Gender gender)
     + Timestamp getCreatedAt()
