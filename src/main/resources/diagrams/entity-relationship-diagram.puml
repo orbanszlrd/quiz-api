@@ -24,21 +24,26 @@ left to right direction
 
 class Category {
     - Long id
-    - String name    
+    - String name
+    - List<Quiz> quizzes
     - Timestamp createdAt
     - Timestamp updatedAt
     + Long getId()
     + void setId(Long id)
     + String getName()
     + void setName(String name)
+    + List<Quiz> getQuizzes()
+    + void setQuizzes(List<Quiz> quizzes)
     + Timestamp getCreatedAt()
     + Timestamp getUpdatedAt()
 }
 
 class Quiz {
     - Long id
-    - String name    
+    - String name
+    - Integer timeLimit
     - Category category
+    - List<Question> questions
     - Timestamp createdAt
     - Timestamp updatedAt
     + Long getId()
@@ -54,7 +59,9 @@ class Quiz {
 class Question {
     - Long id
     - String text
+    - Integer timeLimit
     - Quiz quiz
+    - List<Answer> answers
     - Byte value
     - Timestamp createdAt
     - Timestamp updatedAt

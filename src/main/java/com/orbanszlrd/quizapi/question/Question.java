@@ -20,7 +20,10 @@ public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
+
     public String text;
+
+    private Integer timeLimit;
 
     @ManyToOne
     public Quiz quiz;
