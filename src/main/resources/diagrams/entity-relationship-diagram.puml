@@ -52,6 +52,8 @@ class Quiz {
     + void setName(String name)
     + Category getCategory()
     + void setCategory(Category category)
+    + List<Question> getQuestions()
+    + void setQuestions(List<Question> questions)
     + Timestamp getCreatedAt()
     + Timestamp getUpdatedAt()
 } 
@@ -71,6 +73,8 @@ class Question {
     + void setText(String text)
     + Quiz getQuiz()
     + void setQuiz(Quiz quiz)
+    + List<Answer> getAnswers()
+    + void setAnswers(Answer answer)
     + Byte getValue()
     + void setValue(Byte value)
     + Timestamp getCreatedAt()
