@@ -103,6 +103,7 @@ class Answer {
 class  User {
     - Long id
     - String email
+    - Role role
     - String firstName
     - String LastName
     - Date dateOfBirth
@@ -113,6 +114,8 @@ class  User {
     + void setId(Long id)
     + String getEmail()
     + void setEmail(String email)
+    + Role getRole()
+    + void setRole(Role role)
     + String getFirstName()
     + void setFirstName(String firstName)
     + String getLastName()
@@ -160,6 +163,12 @@ class  UserAnswer {
     + Timestamp getUpdatedAt()
 }
 
+enum Role {
+    OWNER
+    ADMIN
+    USER
+}
+
 enum Gender {
     FEMALE
     MALE
@@ -169,6 +178,7 @@ enum Gender {
 Category "1" *-- "many" Quiz
 Quiz "1" *-- "many" Question
 Question "1" *-- "many" Answer
+Role "1" --* "many" User
 Gender "1" --* "many" User
 User "1" --* "many" UserQuiz
 Quiz "1" --* "many" UserQuiz
