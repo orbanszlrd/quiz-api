@@ -103,6 +103,9 @@ class Answer {
 class  User {
     - Long id
     - String email
+    - String username
+    - String password
+    - boolean enabled
     - Role role
     - String firstName
     - String LastName
@@ -114,6 +117,12 @@ class  User {
     + void setId(Long id)
     + String getEmail()
     + void setEmail(String email)
+    + String getUsername()
+    + void setUsername(String username)
+    + String getPassword()
+    + void setPassword(String password)
+    + boolean isEnabled()
+    + void setEnabled(boolean enabled)
     + Role getRole()
     + void setRole(Role role)
     + String getFirstName()
@@ -170,9 +179,8 @@ enum Role {
 }
 
 enum Gender {
-    FEMALE
     MALE
-    OTHER
+    FEMALE
 }
 
 Category "1" *-- "many" Quiz

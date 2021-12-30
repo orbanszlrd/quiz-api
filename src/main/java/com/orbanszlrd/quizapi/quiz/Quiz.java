@@ -36,5 +36,4 @@ public class Quiz {
 
     @UpdateTimestamp
     private Timestamp updatedAt;
-
 }
