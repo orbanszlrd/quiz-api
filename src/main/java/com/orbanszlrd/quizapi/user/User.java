@@ -49,6 +49,14 @@ public class User {
     @UpdateTimestamp
     private Timestamp updatedAt;
 
+    public User(String username, String email, String password, boolean enabled, Role role) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.enabled = enabled;
+        this.role = role;
+    }
+
     @PrePersist
     protected void onCreate() {
         createdAt = Timestamp.valueOf(LocalDateTime.now());

@@ -25,12 +25,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable().headers().frameOptions().sameOrigin()
                 .and()
-                .formLogin()
-                .and()
                 .authorizeRequests()
                 .antMatchers("/h2-console/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/**").authenticated()
                 .antMatchers("/api/v1/**").hasAnyRole("OWNER", "ADMIN")
-                .antMatchers("/**").permitAll();
+                .antMatchers("/**").permitAll()
+                .and()
+                .httpBasic();
     }
 }
