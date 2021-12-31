@@ -1,9 +1,18 @@
+# Quiz API
+
 [![Java CI with Maven](https://github.com/orbanszlrd/quiz-api/actions/workflows/maven.yml/badge.svg)](https://github.com/orbanszlrd/quiz-api/actions/workflows/maven.yml)
 
-# Quiz API
+### Description
 Simple API written in Java using Spring Boot and PostgreSQL.
 
 ### API Endpoints
+
+1) The User API
+   - POST /api/v1/users Add a new user.
+   - GET /api/v1/users Retrieve all users.
+   - GET /api/v1/users/{id} Get a user by its id.
+   - PUT /api/v1/users/{id} Update a user by its id.
+   - DELETE /api/v1/users/{id} Delete a user by its id
 
 1) The Category API
     - POST /api/v1/categories Add a new category.
