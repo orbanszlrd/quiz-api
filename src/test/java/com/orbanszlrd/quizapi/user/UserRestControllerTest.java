@@ -3,6 +3,7 @@ package com.orbanszlrd.quizapi.user;
 import com.orbanszlrd.quizapi.user.dto.AddUser;
 import com.orbanszlrd.quizapi.user.dto.GetUser;
 import com.orbanszlrd.quizapi.user.dto.UpdateUser;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,10 @@ class UserRestControllerTest {
         baseUrl = "http://localhost:" + port + "/api/v1/users";
     }
 
+    @AfterEach
+    void tearDown() {
+        jdbcTemplate.update("delete from user where id>3");
+    }
     @Test
     void findAll_returns_every_user_for_admin() {
         final ResponseEntity<GetUser[]> response = testRestTemplate.withBasicAuth("admin", "admin").getForEntity(baseUrl, GetUser[].class);
@@ -68,13 +73,11 @@ class UserRestControllerTest {
     @Test
     void update_modifies_the_user_correctly() {
         User glenn = new User("glenn.quagmire", "glenn.quagmire@email.com", passwordEncoder.encode("quagmire"), true, Role.USER);
-        glenn.setId(20L);
+        glenn.setId(4L);
 
         jdbcTemplate.update("insert into user (id, username, email, password, enabled, role) values (?, ?, ?, ?, ?, ?);", glenn.getId(), glenn.getUsername(), glenn.getEmail(), glenn.getPassword(), glenn.isEnabled(), glenn.getRole().ordinal());
 
-        UpdateUser updateUser = new UpdateUser();
-        updateUser.setEnabled(false);
-        updateUser.setRole(Role.ADMIN);
+        UpdateUser updateUser = new UpdateUser("glenn.quagmire", "glenn.quagmire@email.com", "glenn", false, Role.USER);
 
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -90,7 +93,7 @@ class UserRestControllerTest {
     @Test
     void findById_returns_the_correct_user() {
         User brian = new User("brian.griffin", "brian.griffin@email.com", passwordEncoder.encode("brian"), true, Role.USER);
-        brian.setId(13L);
+        brian.setId(4L);
 
         jdbcTemplate.update("insert into user (id, username, email, password, enabled, role) values (?, ?, ?, ?, ?, ?);", brian.getId(), brian.getUsername(), brian.getEmail(), brian.getPassword(), brian.isEnabled(), brian.getRole().ordinal());
         GetUser getUser = testRestTemplate.withBasicAuth("admin", "admin").getForObject(baseUrl + "/" + brian.getId(), GetUser.class);
@@ -104,7 +107,7 @@ class UserRestControllerTest {
     @Test
     void deleteById_removes_the_correct_user() {
         User cleveland = new User("cleveland.brown", "cleveland.brown@email.com", passwordEncoder.encode("cleveland"), true, Role.USER);
-        cleveland.setId(33L);
+        cleveland.setId(4L);
 
         jdbcTemplate.update("insert into user (id, username, email, password, enabled, role) values (?, ?, ?, ?, ?, ?);", cleveland.getId(), cleveland.getUsername(), cleveland.getEmail(), cleveland.getPassword(), cleveland.isEnabled(), cleveland.getRole().ordinal());
 

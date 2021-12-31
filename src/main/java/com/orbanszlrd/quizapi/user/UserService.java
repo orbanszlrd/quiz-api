@@ -46,27 +46,10 @@ public class UserService implements UserDetailsService {
     }
 
     public GetUser update(Long id, UpdateUser updateUser) {
-        User user = userRepository.findById(id).orElseThrow(RuntimeException::new);
+        findById(id);
 
-        if (updateUser.getUsername() != null) {
-            user.setUsername(updateUser.getUsername());
-        }
-
-        if (updateUser.getEmail() != null) {
-            user.setEmail(updateUser.getEmail());
-        }
-
-        if (updateUser.getPassword() != null) {
-            user.setPassword(passwordEncoder.encode(updateUser.getPassword()));
-        }
-
-        if (updateUser.getEnabled() != null) {
-            user.setEnabled(updateUser.getEnabled());
-        }
-
-        if (updateUser.getRole() !=  null) {
-            user.setRole(updateUser.getRole());
-        }
+        User user = modelMapper.map(updateUser, User.class);
+        user.setId(id);
 
         userRepository.save(user);
 

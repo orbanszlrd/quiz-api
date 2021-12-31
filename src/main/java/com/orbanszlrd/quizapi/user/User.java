@@ -10,6 +10,7 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @NoArgsConstructor
@@ -49,6 +50,15 @@ public class User {
     @UpdateTimestamp
     private Timestamp updatedAt;
 
+    public User(Long id, String username, String email, String password, boolean enabled, Role role) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.enabled = enabled;
+        this.role = role;
+    }
+
     public User(String username, String email, String password, boolean enabled, Role role) {
         this.username = username;
         this.email = email;
@@ -65,5 +75,18 @@ public class User {
     @PreUpdate
     protected void onUpdate() {
         updatedAt = Timestamp.valueOf(LocalDateTime.now());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return email.equals(user.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email);
     }
 }
