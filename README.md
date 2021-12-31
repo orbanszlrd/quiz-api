@@ -1,3 +1,5 @@
+[![Java CI with Maven](https://github.com/orbanszlrd/quiz-api/actions/workflows/maven.yml/badge.svg)](https://github.com/orbanszlrd/quiz-api/actions/workflows/maven.yml)
+
 # Quiz API
 Simple API written in Java using Spring Boot and PostgreSQL.
 
