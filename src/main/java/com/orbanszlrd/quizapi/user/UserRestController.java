@@ -28,7 +28,7 @@ public class UserRestController {
     private final UserService userService;
     private final UserModelAssembler userModelAssembler;
 
-    @GetMapping(value = "", produces = {"application/json"})
+    @GetMapping(value = "", produces = {"application/hal+json"})
     @Operation(summary = "List all users", description = "List all users")
     public CollectionModel<EntityModel<GetUser>> findAll() {
         List<GetUser> getUsers = userService.findAll();
@@ -38,7 +38,7 @@ public class UserRestController {
         );
     }
 
-    @PostMapping(value = "", produces = {"application/json"})
+    @PostMapping(value = "", produces = {"application/hal+json"})
     @Operation(summary = "Insert a new user", description = "Insert a new user")
     @ResponseStatus(HttpStatus.CREATED)
     public EntityModel<GetUser> add(@Valid @RequestBody AddUser addUser) {
@@ -46,7 +46,7 @@ public class UserRestController {
         return userModelAssembler.toModel(getUser);
     }
 
-    @PutMapping(value = "/{id}", produces = {"application/json"})
+    @PutMapping(value = "/{id}", produces = {"application/hal+json"})
     @Operation(summary = "Update a user", description = "Update a user by its id")
     public EntityModel<GetUser> update(@Parameter(description = "The id of the user", required = true, example = "1") @Min(1) @PathVariable Long id, @Valid @RequestBody UpdateUser updateUser) {
         GetUser getUser = userService.update(id, updateUser);
@@ -54,7 +54,7 @@ public class UserRestController {
         return userModelAssembler.toModel(getUser);
     }
 
-    @GetMapping(value = "/{id}", produces = {"application/json"})
+    @GetMapping(value = "/{id}", produces = {"application/hal+json"})
     @Operation(summary = "Find a user", description = "Find a user by its id")
     public EntityModel<GetUser> findById(@Parameter(description = "The id of the user", required = true, example = "1") @Min(1) @PathVariable Long id) {
         GetUser getUser = userService.findById(id);

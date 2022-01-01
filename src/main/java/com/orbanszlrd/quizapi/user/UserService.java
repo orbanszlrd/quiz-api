@@ -3,6 +3,7 @@ package com.orbanszlrd.quizapi.user;
 import com.orbanszlrd.quizapi.user.dto.AddUser;
 import com.orbanszlrd.quizapi.user.dto.GetUser;
 import com.orbanszlrd.quizapi.user.dto.UpdateUser;
+import com.orbanszlrd.quizapi.user.error.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -57,7 +58,7 @@ public class UserService implements UserDetailsService {
     }
 
     public GetUser findById(Long id) {
-        User user = userRepository.findById(id).orElseThrow(RuntimeException::new);
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
         return modelMapper.map(user, GetUser.class);
     }
 
