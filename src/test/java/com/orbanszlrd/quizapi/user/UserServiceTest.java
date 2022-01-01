@@ -1,8 +1,8 @@
 package com.orbanszlrd.quizapi.user;
 
-import com.orbanszlrd.quizapi.user.dto.AddUser;
-import com.orbanszlrd.quizapi.user.dto.GetUser;
-import com.orbanszlrd.quizapi.user.dto.UpdateUser;
+import com.orbanszlrd.quizapi.user.dto.InsertUserRequest;
+import com.orbanszlrd.quizapi.user.dto.UserResponse;
+import com.orbanszlrd.quizapi.user.dto.UpdateUserRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -54,17 +54,17 @@ class UserServiceTest {
     @Test
     void findAll_works_fine() {
         when(userRepository.findAll()).thenReturn(users);
-        List<GetUser> getUsers = userService.findAll();
-        assertThat(getUsers.size()).isEqualTo(users.size());
+        List<UserResponse> userResponses = userService.findAll();
+        assertThat(userResponses.size()).isEqualTo(users.size());
     }
 
     @Test
     void add_works_fine() {
-        AddUser addUser = new AddUser("joe", "joe@email.com", passwordEncoder.encode("joe"), Role.ADMIN);
-        GetUser getUser = userService.add(addUser);
-        assertThat(getUser.getUsername()).isEqualTo(addUser.getUsername());
-        assertThat(getUser.getEmail()).isEqualTo(addUser.getEmail());
-        assertThat(getUser.getRole()).isEqualTo(addUser.getRole());
+        InsertUserRequest insertUserRequest = new InsertUserRequest("joe", "joe@email.com", passwordEncoder.encode("joe"), Role.ADMIN);
+        UserResponse userResponse = userService.add(insertUserRequest);
+        assertThat(userResponse.getUsername()).isEqualTo(insertUserRequest.getUsername());
+        assertThat(userResponse.getEmail()).isEqualTo(insertUserRequest.getEmail());
+        assertThat(userResponse.getRole()).isEqualTo(insertUserRequest.getRole());
     }
 
     @ParameterizedTest
@@ -72,12 +72,12 @@ class UserServiceTest {
     void update_works_fine(long id) {
         when(userRepository.findById(id)).thenReturn(users.stream().filter(user -> user.getId() == id).findFirst());
 
-        UpdateUser updateUser = new UpdateUser("bill", "bill@email.com", "bill", false, Role.ADMIN);
-        GetUser getUser = userService.update(id, updateUser);
+        UpdateUserRequest updateUserRequest = new UpdateUserRequest("bill", "bill@email.com", "bill", false, Role.ADMIN);
+        UserResponse userResponse = userService.update(id, updateUserRequest);
 
-        assertThat(getUser.getUsername()).isEqualTo(updateUser.getUsername());
-        assertThat(getUser.getEmail()).isEqualTo(updateUser.getEmail());
-        assertThat(getUser.getRole()).isEqualTo(updateUser.getRole());
+        assertThat(userResponse.getUsername()).isEqualTo(updateUserRequest.getUsername());
+        assertThat(userResponse.getEmail()).isEqualTo(updateUserRequest.getEmail());
+        assertThat(userResponse.getRole()).isEqualTo(updateUserRequest.getRole());
     }
 
     @ParameterizedTest
@@ -88,10 +88,10 @@ class UserServiceTest {
 
         when(userRepository.findById(id)).thenReturn(userOptional);
 
-        GetUser getUser = userService.findById(id);
-        assertThat(getUser.getId()).isEqualTo(id);
-        assertThat(getUser.getUsername()).isEqualTo(user.getUsername());
-        assertThat(getUser.getEmail()).isEqualTo(user.getEmail());
+        UserResponse userResponse = userService.findById(id);
+        assertThat(userResponse.getId()).isEqualTo(id);
+        assertThat(userResponse.getUsername()).isEqualTo(user.getUsername());
+        assertThat(userResponse.getEmail()).isEqualTo(user.getEmail());
     }
 
     @ParameterizedTest

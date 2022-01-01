@@ -13,7 +13,7 @@ import java.sql.Date;
 
 @Data
 @NoArgsConstructor
-public class AddUser {
+public class UpdateUserRequest {
     @NotBlank
     @Size(min = 6, max = 20)
     @Schema(description = "The username of the user", example = "dummy.user", required = true)
@@ -29,6 +29,9 @@ public class AddUser {
     @Size(min = 10, max = 50)
     @Schema(description = "The password of the user", example = "StrongPassword1234!", required = true)
     private String password;
+
+    @Schema(description = "The status of the user account", example = "false", required = true)
+    private Boolean enabled;
 
     @Schema(description = "The role of the user", example = "USER", required = true)
     private Role role;
@@ -47,10 +50,11 @@ public class AddUser {
     @Schema(description = "The gender of the user", example = "MALE")
     private Gender gender;
 
-    public AddUser(String username, String email, String password, Role role) {
+    public UpdateUserRequest(String username, String email, String password, Boolean enabled, Role role) {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.enabled = enabled;
         this.role = role;
     }
 }

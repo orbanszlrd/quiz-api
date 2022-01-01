@@ -1,8 +1,8 @@
 package com.orbanszlrd.quizapi.user;
 
-import com.orbanszlrd.quizapi.user.dto.AddUser;
-import com.orbanszlrd.quizapi.user.dto.GetUser;
-import com.orbanszlrd.quizapi.user.dto.UpdateUser;
+import com.orbanszlrd.quizapi.user.dto.InsertUserRequest;
+import com.orbanszlrd.quizapi.user.dto.UserResponse;
+import com.orbanszlrd.quizapi.user.dto.UpdateUserRequest;
 import com.orbanszlrd.quizapi.user.error.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -31,35 +31,35 @@ public class UserService implements UserDetailsService {
         return userOptional.map(AppUserDetails::new).orElseThrow(() -> new UsernameNotFoundException(username));
     }
 
-    public List<GetUser> findAll() {
-        Type type = new TypeToken<List<GetUser>>() {
+    public List<UserResponse> findAll() {
+        Type type = new TypeToken<List<UserResponse>>() {
         }.getType();
 
         return modelMapper.map(userRepository.findAll(), type);
     }
 
-    public GetUser add(AddUser addUser) {
-        User user = modelMapper.map(addUser, User.class);
-        user.setPassword(passwordEncoder.encode(addUser.getPassword()));
+    public UserResponse add(InsertUserRequest insertUserRequest) {
+        User user = modelMapper.map(insertUserRequest, User.class);
+        user.setPassword(passwordEncoder.encode(insertUserRequest.getPassword()));
         user.setEnabled(true);
         userRepository.save(user);
-        return modelMapper.map(user, GetUser.class);
+        return modelMapper.map(user, UserResponse.class);
     }
 
-    public GetUser update(Long id, UpdateUser updateUser) {
+    public UserResponse update(Long id, UpdateUserRequest updateUserRequest) {
         findById(id);
 
-        User user = modelMapper.map(updateUser, User.class);
+        User user = modelMapper.map(updateUserRequest, User.class);
         user.setId(id);
 
         userRepository.save(user);
 
-        return modelMapper.map(user, GetUser.class);
+        return modelMapper.map(user, UserResponse.class);
     }
 
-    public GetUser findById(Long id) {
+    public UserResponse findById(Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
-        return modelMapper.map(user, GetUser.class);
+        return modelMapper.map(user, UserResponse.class);
     }
 
     public void deleteById(Long id) {

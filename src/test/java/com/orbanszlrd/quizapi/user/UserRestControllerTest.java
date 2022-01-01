@@ -1,13 +1,12 @@
 package com.orbanszlrd.quizapi.user;
 
-import com.orbanszlrd.quizapi.user.dto.AddUser;
-import com.orbanszlrd.quizapi.user.dto.GetUser;
-import com.orbanszlrd.quizapi.user.dto.UpdateUser;
+import com.orbanszlrd.quizapi.user.dto.InsertUserRequest;
+import com.orbanszlrd.quizapi.user.dto.UserResponse;
+import com.orbanszlrd.quizapi.user.dto.UpdateUserRequest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -17,9 +16,6 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.http.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.lang.reflect.Type;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -56,27 +52,27 @@ class UserRestControllerTest {
     void findAll_returns_every_user_for_admin() {
         final ResponseEntity<CollectionModel> response = testRestTemplate.withBasicAuth("admin", "admin").getForEntity(baseUrl, CollectionModel.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        final CollectionModel<EntityModel<GetUser>> collectionModel = response.getBody();
+        final CollectionModel<EntityModel<UserResponse>> collectionModel = response.getBody();
         assertEquals(getEntityCount(), collectionModel.getContent().size());
     }
 
     @Test
     void add_creates_a_new_user() {
-        AddUser peter = new AddUser("peter.griffin", "peter.griffin@email.com", "peter.griffin", Role.USER);
+        InsertUserRequest peter = new InsertUserRequest("peter.griffin", "peter.griffin@email.com", "peter.griffin", Role.USER);
 
         final int countBefore = getEntityCount();
 
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        final HttpEntity<AddUser> httpEntity = new HttpEntity<>(peter, headers);
+        final HttpEntity<InsertUserRequest> httpEntity = new HttpEntity<>(peter, headers);
 
         final EntityModel entityModel = testRestTemplate.withBasicAuth("admin", "admin").postForObject(baseUrl, httpEntity, EntityModel.class);
-        GetUser getUser = modelMapper.map(entityModel.getContent(), GetUser.class);
+        UserResponse userResponse = modelMapper.map(entityModel.getContent(), UserResponse.class);
 
         assertEquals(countBefore + 1, getEntityCount());
-        assertEquals(peter.getUsername(), getUser.getUsername());
-        assertEquals(peter.getEmail(), getUser.getEmail());
-        assertEquals(peter.getRole(), getUser.getRole());
+        assertEquals(peter.getUsername(), userResponse.getUsername());
+        assertEquals(peter.getEmail(), userResponse.getEmail());
+        assertEquals(peter.getRole(), userResponse.getRole());
     }
 
     @Test
@@ -86,18 +82,18 @@ class UserRestControllerTest {
 
         jdbcTemplate.update("insert into user (id, username, email, password, enabled, role) values (?, ?, ?, ?, ?, ?);", glenn.getId(), glenn.getUsername(), glenn.getEmail(), glenn.getPassword(), glenn.isEnabled(), glenn.getRole().ordinal());
 
-        UpdateUser updateUser = new UpdateUser("glenn.quagmire", "glenn.quagmire@email.com", "glenn.quagmire.stronger", false, Role.USER);
+        UpdateUserRequest updateUserRequest = new UpdateUserRequest("glenn.quagmire", "glenn.quagmire@email.com", "glenn.quagmire.stronger", false, Role.USER);
 
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        final HttpEntity<UpdateUser> httpEntity = new HttpEntity<>(updateUser, headers);
+        final HttpEntity<UpdateUserRequest> httpEntity = new HttpEntity<>(updateUserRequest, headers);
 
         final EntityModel entityModel = testRestTemplate.withBasicAuth("admin", "admin").exchange(baseUrl + "/" + glenn.getId(), HttpMethod.PUT, httpEntity, EntityModel.class).getBody();
-        GetUser getUser = modelMapper.map(entityModel.getContent(), GetUser.class);
+        UserResponse userResponse = modelMapper.map(entityModel.getContent(), UserResponse.class);
 
-        assertEquals(updateUser.getEnabled(), getUser.isEnabled());
-        assertEquals(updateUser.getRole(), getUser.getRole());
+        assertEquals(updateUserRequest.getEnabled(), userResponse.isEnabled());
+        assertEquals(updateUserRequest.getRole(), userResponse.getRole());
     }
 
     @Test
@@ -108,12 +104,12 @@ class UserRestControllerTest {
         jdbcTemplate.update("insert into user (id, username, email, password, enabled, role) values (?, ?, ?, ?, ?, ?);", brian.getId(), brian.getUsername(), brian.getEmail(), brian.getPassword(), brian.isEnabled(), brian.getRole().ordinal());
 
         EntityModel entityModel = testRestTemplate.withBasicAuth("admin", "admin").getForObject(baseUrl + "/" + brian.getId(), EntityModel.class);
-        GetUser getUser = modelMapper.map(entityModel.getContent(), GetUser.class);
+        UserResponse userResponse = modelMapper.map(entityModel.getContent(), UserResponse.class);
 
-        assertEquals(brian.getId(), getUser.getId());
-        assertEquals(brian.getUsername(), getUser.getUsername());
-        assertEquals(brian.getEmail(), getUser.getEmail());
-        assertEquals(brian.getRole(), getUser.getRole());
+        assertEquals(brian.getId(), userResponse.getId());
+        assertEquals(brian.getUsername(), userResponse.getUsername());
+        assertEquals(brian.getEmail(), userResponse.getEmail());
+        assertEquals(brian.getRole(), userResponse.getRole());
     }
 
     @Test
