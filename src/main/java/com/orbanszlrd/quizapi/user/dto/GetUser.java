@@ -17,13 +17,13 @@ public class GetUser {
     private Long id;
 
     @NotBlank
-    @Size(min = 6,  max = 20)
+    @Size(min = 6, max = 20)
     @Schema(description = "The username of the user", example = "dummy.user", required = true)
     private String username;
 
     @NotBlank
     @Email
-    @Size(min = 10,  max = 50)
+    @Size(min = 10, max = 50)
     @Schema(description = "The email of the user", example = "dummy@email.com", required = true)
     private String email;
 
@@ -33,11 +33,11 @@ public class GetUser {
     @Schema(description = "The role of the user", example = "USER", required = true)
     private Role role;
 
-    @Size(min = 2,  max = 30)
+    @Size(min = 2, max = 30)
     @Schema(description = "The first name of the user", example = "Dummy")
     private String firstName;
 
-    @Size(min = 2,  max = 30)
+    @Size(min = 2, max = 30)
     @Schema(description = "The last name of the user", example = "User")
     private String lastName;
 

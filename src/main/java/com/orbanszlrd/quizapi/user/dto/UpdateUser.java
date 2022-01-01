@@ -3,7 +3,6 @@ package com.orbanszlrd.quizapi.user.dto;
 import com.orbanszlrd.quizapi.user.Gender;
 import com.orbanszlrd.quizapi.user.Role;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,18 +15,18 @@ import java.sql.Date;
 @NoArgsConstructor
 public class UpdateUser {
     @NotBlank
-    @Size(min = 6,  max = 20)
+    @Size(min = 6, max = 20)
     @Schema(description = "The username of the user", example = "dummy.user", required = true)
     private String username;
 
     @NotBlank
     @Email
-    @Size(min = 10,  max = 50)
+    @Size(min = 10, max = 50)
     @Schema(description = "The email of the user", example = "dummy@email.com", required = true)
     private String email;
 
     @NotBlank
-    @Size(min = 10,  max = 50)
+    @Size(min = 10, max = 50)
     @Schema(description = "The password of the user", example = "StrongPassword1234!", required = true)
     private String password;
 
@@ -37,11 +36,11 @@ public class UpdateUser {
     @Schema(description = "The role of the user", example = "USER", required = true)
     private Role role;
 
-    @Size(min = 2,  max = 30)
+    @Size(min = 2, max = 30)
     @Schema(description = "The first name of the user", example = "Dummy")
     private String firstName;
 
-    @Size(min = 2,  max = 30)
+    @Size(min = 2, max = 30)
     @Schema(description = "The last name of the user", example = "User")
     private String lastName;
 

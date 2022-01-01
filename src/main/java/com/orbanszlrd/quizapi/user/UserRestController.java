@@ -7,12 +7,18 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -20,30 +26,39 @@ import java.util.List;
 @Tag(name = "The User API", description = "The User API")
 public class UserRestController {
     private final UserService userService;
+    private final UserModelAssembler userModelAssembler;
 
     @GetMapping(value = "", produces = {"application/json"})
     @Operation(summary = "List all users", description = "List all users")
-    public List<GetUser> findAll() {
-        return userService.findAll();
+    public CollectionModel<EntityModel<GetUser>> findAll() {
+        List<GetUser> getUsers = userService.findAll();
+        List<EntityModel<GetUser>> userEntities = getUsers.stream().map(userModelAssembler::toModel).collect(Collectors.toList());
+        return CollectionModel.of(userEntities,
+                linkTo(methodOn(UserRestController.class).findAll()).withSelfRel()
+        );
     }
 
     @PostMapping(value = "", produces = {"application/json"})
     @Operation(summary = "Insert a new user", description = "Insert a new user")
     @ResponseStatus(HttpStatus.CREATED)
-    public GetUser add(@Valid @RequestBody AddUser addUser) {
-        return userService.add(addUser);
+    public EntityModel<GetUser> add(@Valid @RequestBody AddUser addUser) {
+        GetUser getUser = userService.add(addUser);
+        return userModelAssembler.toModel(getUser);
     }
 
-    @PutMapping(value = "/{id}",  produces = {"application/json"})
+    @PutMapping(value = "/{id}", produces = {"application/json"})
     @Operation(summary = "Update a user", description = "Update a user by its id")
-    public GetUser update(@Parameter(description = "The id of the user", required = true, example = "1") @Min(1) @PathVariable Long id, @Valid @RequestBody UpdateUser updateUser) {
-        return userService.update(id, updateUser);
+    public EntityModel<GetUser> update(@Parameter(description = "The id of the user", required = true, example = "1") @Min(1) @PathVariable Long id, @Valid @RequestBody UpdateUser updateUser) {
+        GetUser getUser = userService.update(id, updateUser);
+
+        return userModelAssembler.toModel(getUser);
     }
 
     @GetMapping(value = "/{id}", produces = {"application/json"})
     @Operation(summary = "Find a user", description = "Find a user by its id")
-    public GetUser findById(@Parameter(description = "The id of the user", required = true, example = "1") @Min(1) @PathVariable Long id) {
-        return userService.findById(id);
+    public EntityModel<GetUser> findById(@Parameter(description = "The id of the user", required = true, example = "1") @Min(1) @PathVariable Long id) {
+        GetUser getUser = userService.findById(id);
+        return userModelAssembler.toModel(getUser);
     }
 
     @DeleteMapping(value = "/{id}")
