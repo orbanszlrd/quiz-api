@@ -113,6 +113,22 @@ class UserRestControllerTest {
     }
 
     @Test
+    void findById_returns_bad_request_if_no_user() {
+        final ResponseEntity<Object> response = testRestTemplate.withBasicAuth("admin", "admin").getForEntity(baseUrl + "/6", Object.class);
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals(MediaType.APPLICATION_PROBLEM_JSON, response.getHeaders().getContentType());
+    }
+
+    @Test
+    void findById_returns_bad_request_if_invalid_id() {
+        final ResponseEntity<Object> response = testRestTemplate.withBasicAuth("admin", "admin").getForEntity(baseUrl + "/invalid", Object.class);
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals(MediaType.APPLICATION_PROBLEM_JSON, response.getHeaders().getContentType());
+
+        System.out.println(response.getBody());
+    }
+
+    @Test
     void deleteById_removes_the_correct_user() {
         User cleveland = new User("cleveland.brown", "cleveland.brown@email.com", passwordEncoder.encode("cleveland.brown"), true, Role.USER);
         cleveland.setId(4L);
