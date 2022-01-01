@@ -1,6 +1,6 @@
-package com.orbanszlrd.quizapi.user;
+package com.orbanszlrd.quizapi.modules.user;
 
-import com.orbanszlrd.quizapi.user.dto.UserResponse;
+import com.orbanszlrd.quizapi.modules.user.dto.UserResponse;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;

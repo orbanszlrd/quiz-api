@@ -1,8 +1,8 @@
-package com.orbanszlrd.quizapi.user;
+package com.orbanszlrd.quizapi.modules.user;
 
-import com.orbanszlrd.quizapi.user.dto.InsertUserRequest;
-import com.orbanszlrd.quizapi.user.dto.UserResponse;
-import com.orbanszlrd.quizapi.user.dto.UpdateUserRequest;
+import com.orbanszlrd.quizapi.modules.user.dto.InsertUserRequest;
+import com.orbanszlrd.quizapi.modules.user.dto.UserResponse;
+import com.orbanszlrd.quizapi.modules.user.dto.UpdateUserRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;

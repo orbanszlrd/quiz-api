@@ -1,7 +1,7 @@
-package com.orbanszlrd.quizapi.user.dto;
+package com.orbanszlrd.quizapi.modules.user.dto;
 
-import com.orbanszlrd.quizapi.user.Gender;
-import com.orbanszlrd.quizapi.user.Role;
+import com.orbanszlrd.quizapi.modules.user.Gender;
+import com.orbanszlrd.quizapi.modules.user.Role;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

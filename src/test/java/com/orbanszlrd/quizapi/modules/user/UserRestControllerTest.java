@@ -1,8 +1,8 @@
-package com.orbanszlrd.quizapi.user;
+package com.orbanszlrd.quizapi.modules.user;
 
-import com.orbanszlrd.quizapi.user.dto.InsertUserRequest;
-import com.orbanszlrd.quizapi.user.dto.UserResponse;
-import com.orbanszlrd.quizapi.user.dto.UpdateUserRequest;
+import com.orbanszlrd.quizapi.modules.user.dto.InsertUserRequest;
+import com.orbanszlrd.quizapi.modules.user.dto.UserResponse;
+import com.orbanszlrd.quizapi.modules.user.dto.UpdateUserRequest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

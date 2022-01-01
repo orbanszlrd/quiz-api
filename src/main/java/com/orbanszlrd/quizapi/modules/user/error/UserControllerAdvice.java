@@ -1,4 +1,4 @@
-package com.orbanszlrd.quizapi.user.error;
+package com.orbanszlrd.quizapi.modules.user.error;
 
 import com.orbanszlrd.quizapi.error.GenericProblem;
 import org.springframework.http.MediaType;

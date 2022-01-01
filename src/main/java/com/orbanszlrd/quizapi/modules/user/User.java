@@ -1,4 +1,4 @@
-package com.orbanszlrd.quizapi.user;
+package com.orbanszlrd.quizapi.modules.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,6 +1,6 @@
 package com.orbanszlrd.quizapi.config;
 
-import com.orbanszlrd.quizapi.user.UserService;
+import com.orbanszlrd.quizapi.modules.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

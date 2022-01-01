@@ -1,4 +1,4 @@
-package com.orbanszlrd.quizapi.user.error;
+package com.orbanszlrd.quizapi.modules.user.error;
 
 public class UserNotFoundException extends RuntimeException {
     public UserNotFoundException(Long id) {
