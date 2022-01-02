@@ -1,7 +1,7 @@
 # Quiz API
 
 [![Java CI with Maven](https://github.com/orbanszlrd/quiz-api/actions/workflows/maven.yml/badge.svg)](https://github.com/orbanszlrd/quiz-api/actions/workflows/maven.yml)
-
+[![CodeQL](https://github.com/orbanszlrd/quiz-api/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/orbanszlrd/quiz-api/actions/workflows/codeql-analysis.yml)
 ### Description
 Simple API written in Java using Spring Boot and a Relational Database.
 
