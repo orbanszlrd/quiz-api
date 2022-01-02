@@ -19,19 +19,19 @@ import java.util.List;
 public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
+    private Long id;
 
-    public String text;
+    private String text;
 
     private Integer timeLimit;
 
     @ManyToOne
-    public Quiz quiz;
+    private Quiz quiz;
 
     @OneToMany(mappedBy = "question")
     private List<Answer> answers;
 
-    public Byte value;
+    private Byte value;
 
     @CreationTimestamp
     private Timestamp createdAt;
