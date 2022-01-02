@@ -45,7 +45,7 @@ class UserRestControllerTest {
 
     @AfterEach
     void tearDown() {
-        jdbcTemplate.update("delete from user where id>3");
+        jdbcTemplate.update("delete from users where id>3");
     }
 
     @Test
@@ -80,7 +80,7 @@ class UserRestControllerTest {
         User glenn = new User("glenn.quagmire", "glenn.quagmire@email.com", passwordEncoder.encode("glenn.quagmire"), true, Role.USER);
         glenn.setId(4L);
 
-        jdbcTemplate.update("insert into user (id, username, email, password, enabled, role) values (?, ?, ?, ?, ?, ?);", glenn.getId(), glenn.getUsername(), glenn.getEmail(), glenn.getPassword(), glenn.isEnabled(), glenn.getRole().ordinal());
+        jdbcTemplate.update("insert into users (id, username, email, password, enabled, role) values (?, ?, ?, ?, ?, ?);", glenn.getId(), glenn.getUsername(), glenn.getEmail(), glenn.getPassword(), glenn.isEnabled(), glenn.getRole().ordinal());
 
         UpdateUserRequest updateUserRequest = new UpdateUserRequest("glenn.quagmire", "glenn.quagmire@email.com", "glenn.quagmire.stronger", false, Role.USER);
 
@@ -101,7 +101,7 @@ class UserRestControllerTest {
         User brian = new User("brian.griffin", "brian.griffin@email.com", passwordEncoder.encode("brian.griffin"), true, Role.USER);
         brian.setId(4L);
 
-        jdbcTemplate.update("insert into user (id, username, email, password, enabled, role) values (?, ?, ?, ?, ?, ?);", brian.getId(), brian.getUsername(), brian.getEmail(), brian.getPassword(), brian.isEnabled(), brian.getRole().ordinal());
+        jdbcTemplate.update("insert into users (id, username, email, password, enabled, role) values (?, ?, ?, ?, ?, ?);", brian.getId(), brian.getUsername(), brian.getEmail(), brian.getPassword(), brian.isEnabled(), brian.getRole().ordinal());
 
         EntityModel entityModel = testRestTemplate.withBasicAuth("admin", "admin").getForObject(baseUrl + "/" + brian.getId(), EntityModel.class);
         UserResponse userResponse = modelMapper.map(entityModel.getContent(), UserResponse.class);
@@ -133,7 +133,7 @@ class UserRestControllerTest {
         User cleveland = new User("cleveland.brown", "cleveland.brown@email.com", passwordEncoder.encode("cleveland.brown"), true, Role.USER);
         cleveland.setId(4L);
 
-        jdbcTemplate.update("insert into user (id, username, email, password, enabled, role) values (?, ?, ?, ?, ?, ?);", cleveland.getId(), cleveland.getUsername(), cleveland.getEmail(), cleveland.getPassword(), cleveland.isEnabled(), cleveland.getRole().ordinal());
+        jdbcTemplate.update("insert into users (id, username, email, password, enabled, role) values (?, ?, ?, ?, ?, ?);", cleveland.getId(), cleveland.getUsername(), cleveland.getEmail(), cleveland.getPassword(), cleveland.isEnabled(), cleveland.getRole().ordinal());
 
         final int countBefore = getEntityCount();
 
@@ -143,6 +143,6 @@ class UserRestControllerTest {
     }
 
     private Integer getEntityCount() {
-        return jdbcTemplate.queryForObject("select count(1) from user", Integer.class);
+        return jdbcTemplate.queryForObject("select count(1) from users", Integer.class);
     }
 }
