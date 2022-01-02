@@ -14,7 +14,6 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class Quiz {
     @Id
@@ -36,4 +35,17 @@ public class Quiz {
 
     @UpdateTimestamp
     private Timestamp updatedAt;
+
+    public Quiz(Long id, String name, Integer timeLimit, Category category) {
+        this.id = id;
+        this.name = name;
+        this.timeLimit = timeLimit;
+        this.category = category;
+    }
+
+    public Quiz(String name, Integer timeLimit, Category category) {
+        this.name = name;
+        this.timeLimit = timeLimit;
+        this.category = category;
+    }
 }

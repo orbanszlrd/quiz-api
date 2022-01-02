@@ -26,19 +26,13 @@ class UserServiceTest {
     private final ModelMapper modelMapper = new ModelMapper();
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     private final UserRepository userRepository = Mockito.mock(UserRepository.class);
-
-    private UserService userService;
+    private final UserService userService = new UserService(passwordEncoder, modelMapper, userRepository);
 
     private final List<User> users = List.of(
             new User(1L, "tom", "tom@email.com", passwordEncoder.encode("tom"), true, Role.ADMIN),
             new User(2L, "jim", "jim@email.com", passwordEncoder.encode("jim"), false, Role.USER),
             new User(3L, "ben", "ben@email.com", passwordEncoder.encode("ben"), true, Role.USER)
     );
-
-    @BeforeEach
-    void setUp() {
-        userService = new UserService(passwordEncoder, modelMapper, userRepository);
-    }
 
     @ParameterizedTest
     @ValueSource(strings = {"tom", "jim", "ben"})

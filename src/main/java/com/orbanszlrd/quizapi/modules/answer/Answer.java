@@ -12,7 +12,6 @@ import java.sql.Timestamp;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class Answer {
     @Id
@@ -21,14 +20,27 @@ public class Answer {
 
     private String text;
 
+    private Boolean correct;
+
     @ManyToOne
     private Question question;
-
-    private Boolean correct;
 
     @CreationTimestamp
     private Timestamp createdAt;
 
     @UpdateTimestamp
     private Timestamp updatedAt;
+
+    public Answer(String text, Boolean correct, Question question) {
+        this.text = text;
+        this.correct = correct;
+        this.question = question;
+    }
+
+    public Answer(Long id, String text, Boolean correct, Question question) {
+        this.id = id;
+        this.text = text;
+        this.correct = correct;
+        this.question = question;
+    }
 }

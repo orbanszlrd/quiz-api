@@ -13,7 +13,6 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class Category {
     @Id
@@ -30,6 +29,11 @@ public class Category {
 
     @UpdateTimestamp
     private Timestamp updatedAt;
+
+    public Category(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public Category(String name) {
         this.name = name;

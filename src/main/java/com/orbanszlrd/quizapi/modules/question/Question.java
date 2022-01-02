@@ -14,7 +14,6 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class Question {
     @Id
@@ -25,17 +24,32 @@ public class Question {
 
     private Integer timeLimit;
 
+    private Byte value;
+
     @ManyToOne
     private Quiz quiz;
 
     @OneToMany(mappedBy = "question")
     private List<Answer> answers;
 
-    private Byte value;
-
     @CreationTimestamp
     private Timestamp createdAt;
 
     @UpdateTimestamp
     private Timestamp updatedAt;
+
+    public Question(String text, Integer timeLimit, Byte value, Quiz quiz) {
+        this.text = text;
+        this.timeLimit = timeLimit;
+        this.value = value;
+        this.quiz = quiz;
+    }
+
+    public Question(Long id, String text, Integer timeLimit, Byte value, Quiz quiz) {
+        this.id = id;
+        this.text = text;
+        this.timeLimit = timeLimit;
+        this.value = value;
+        this.quiz = quiz;
+    }
 }
