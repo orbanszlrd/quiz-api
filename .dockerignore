@@ -1,0 +1,16 @@
+.github
+.idea
+target/
+
+*.iml
+*.sh
+*.bat
+
+.git
+.gitignore
+.dockerignore
+
+Dockerfile
+*.dockerfile
+
+**/*.log
