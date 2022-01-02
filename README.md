@@ -43,8 +43,9 @@ Simple API written in Java using Spring Boot and a Relational Database.
     - DELETE /api/v1/answers/{id} Delete an Answer by its id.
 
 ### Documentation
-- /swagger-ui
-- /api-docs
+- http://localhost:8080/swagger-ui
+- http://localhost:8080/api-docs
+- http://localhost:8080/h2-console
 
 ### Development
 
@@ -53,7 +54,8 @@ Download and Install the [OpenJDK](https://openjdk.java.net/install/).
 Download and Install the [PostgreSQL](https://www.postgresql.org/https://www.postgresql.org/), an open source relational database.  
 Download and Install the [MariaDB](https://mariadb.org/download/), an open source relational database.  
 Install [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git), the free and open source distributed version control system.
-Install [Docker](https://docs.docker.com/get-docker/), an open source containerization platform.
+Install [Docker](https://docs.docker.com/get-docker/), an open source containerization platform.  
+Install [Docker Compose](https://docs.docker.com/compose/install/), a tool for defining and running multi-container Docker applications.
 
 ##### Clone the project
 Run `git@github.com:orbanszlrd/quiz-api.git` to clone the repository from [GitHub](https://github.com/orbanszlrd/quiz-api).
@@ -63,17 +65,22 @@ After installing PostgreSQL or MariaDB, create a database for your project.
 
 ##### Create the necessary Environment Variables
 
-- Postgres:
+- PostgreSQL:
 ```
 SPRING_DATASOURCE_URL=jdbc:postgresql://<hostname>:5432/<dbname>
 SPRING_DATASOURCE_USERNAME=<username>
 SPRING_DATASOURCE_PASSWORD=<password>
 ```
-- MariaDb: 
+- MariaDB: 
 ```
 SPRING_DATASOURCE_URL=jdbc:mariadb://<hostname>:3306/<dbname>
 SPRING_DATASOURCE_USERNAME=<username>
 SPRING_DATASOURCE_PASSWORD=<password>
 ```
 
+##### Docker
 
+- To build a docker image run  `./docker-image-builder.sh`  
+- To run the app in a docker container run `./docker-container-runner.sh`
+- The app will start running on `http://localhost:9090` and will use an embedded H2  database
+- To run the app with PostgreSQL run `docker-compose up`
