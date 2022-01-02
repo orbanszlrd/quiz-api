@@ -24,7 +24,7 @@ public class Quiz {
 
     private Integer timeLimit;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Category category;
 
     @OneToMany(mappedBy = "quiz")

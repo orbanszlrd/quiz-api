@@ -22,7 +22,7 @@ public class Answer {
 
     private Boolean correct;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Question question;
 
     @CreationTimestamp

@@ -26,7 +26,7 @@ public class Question {
 
     private Byte value;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Quiz quiz;
 
     @OneToMany(mappedBy = "question")
