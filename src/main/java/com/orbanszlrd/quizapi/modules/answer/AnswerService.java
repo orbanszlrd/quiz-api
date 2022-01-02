@@ -1,6 +1,7 @@
 package com.orbanszlrd.quizapi.modules.answer;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,5 +30,13 @@ public class AnswerService {
 
     public void deleteById(Long id) {
         answerRepository.deleteById(id);
+    }
+
+    public List<Answer> findByQuestionId(Long questionId) {
+        return answerRepository.findByQuestionId(questionId);
+    }
+
+    public List<Answer> findCorrectAnswersByQuestionId(Long questionId) {
+        return answerRepository.findCorrectAnswersByQuestionId(questionId);
     }
 }

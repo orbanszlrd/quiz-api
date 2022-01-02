@@ -59,4 +59,8 @@ class QuestionServiceTest {
     @ValueSource(ints = {1, 2})
     void deleteById_works_fine() {
     }
+
+    @Test
+    void findByQuizId_works_fine() {
+    }
 }

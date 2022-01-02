@@ -1,6 +1,7 @@
 package com.orbanszlrd.quizapi.modules.quiz;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,5 +30,9 @@ public class QuizService {
 
     public void deleteById(Long id) {
         quizRepository.deleteById(id);
+    }
+
+    public List<Quiz> findByCategoryId(Long categoryId) {
+        return quizRepository.findByCategoryId(categoryId);
     }
 }

@@ -60,4 +60,12 @@ class AnswerServiceTest {
     @ValueSource(ints = {1, 2, 3, 4})
     void deleteById_works_fine() {
     }
+
+    @Test
+    void findByQuestionId_works_fine() {
+    }
+
+    @Test
+    void findCorrectAnswersByQuestionId_works_fine() {
+    }
 }
