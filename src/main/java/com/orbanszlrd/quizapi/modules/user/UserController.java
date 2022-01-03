@@ -26,6 +26,12 @@ public class UserController {
         return "user/users";
     }
 
+    @GetMapping("/create")
+    public String create(Model model) {
+
+        return "user/edit-user";
+    }
+
     @GetMapping("/{id}")
     public String details(@PathVariable("id") Long id, Model model) {
         UserResponse user = userService.findById(id);
