@@ -30,6 +30,9 @@ public class InsertUserRequest {
     @Schema(description = "The password of the user", example = "StrongPassword1234!", required = true)
     private String password;
 
+    @Schema(description = "The status of the user account", example = "false", required = true)
+    private Boolean enabled;
+
     @Schema(description = "The role of the user", example = "USER", required = true)
     private Role role;
 

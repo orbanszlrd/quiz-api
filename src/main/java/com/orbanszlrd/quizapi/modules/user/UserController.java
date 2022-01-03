@@ -28,7 +28,15 @@ public class UserController {
 
     @GetMapping("/create")
     public String create(Model model) {
+        Long postfix = userService.count() + 1;
+
         UserResponse user = new UserResponse();
+        user.setUsername("user" + postfix);
+        user.setEmail("user" + postfix + "@email.com");
+        user.setEnabled(true);
+        user.setRole(Role.USER);
+        user.setGender(Gender.OTHER);
+        user.setDateOfBirth(Date.valueOf("2000-01-01"));
 
         model.addAttribute("user", user);
         model.addAttribute("roles", Role.values());
@@ -66,6 +74,7 @@ public class UserController {
             @RequestParam("username") String username,
             @RequestParam("email") String email,
             @RequestParam("password") String password,
+            @RequestParam(value = "enabled", required = false) Boolean enabled,
             @RequestParam("role") Role role,
             @RequestParam(value = "firstName",  required = false) String firstName,
             @RequestParam(value = "lastName", required = false) String lastName,
@@ -77,6 +86,7 @@ public class UserController {
         request.setEmail(email);
         request.setPassword(password);
         request.setRole(role);
+        request.setEnabled(enabled);
         request.setFirstName(firstName);
         request.setLastName(lastName);
         request.setDateOfBirth(dateOfBirth);
