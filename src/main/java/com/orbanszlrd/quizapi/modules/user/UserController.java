@@ -28,6 +28,13 @@ public class UserController {
 
     @GetMapping("/create")
     public String create(Model model) {
+        UserResponse user = new UserResponse();
+
+        model.addAttribute("user", user);
+        model.addAttribute("roles", Role.values());
+        model.addAttribute("genders", Gender.values());
+        model.addAttribute("action", "/users");
+        model.addAttribute("method", "POST");
 
         return "user/edit-user";
     }
@@ -46,6 +53,10 @@ public class UserController {
         UserResponse user = userService.findById(id);
 
         model.addAttribute("user", user);
+        model.addAttribute("roles", Role.values());
+        model.addAttribute("genders", Gender.values());
+        model.addAttribute("action", "/users/" + id);
+        model.addAttribute("method", "PUT");
 
         return "user/edit-user";
     }
@@ -56,10 +67,10 @@ public class UserController {
             @RequestParam("email") String email,
             @RequestParam("password") String password,
             @RequestParam("role") Role role,
-            @RequestParam("firstName") String firstName,
-            @RequestParam("lastName") String lastName,
-            @RequestParam("dateOfBirth") Date dateOfBirth,
-            @RequestParam("gender") Gender gender
+            @RequestParam(value = "firstName",  required = false) String firstName,
+            @RequestParam(value = "lastName", required = false) String lastName,
+            @RequestParam(value = "dateOfBirth", required = false) Date dateOfBirth,
+            @RequestParam(value = "gender",  required = false) Gender gender
     ) {
         InsertUserRequest request = new InsertUserRequest();
         request.setUsername(username);
@@ -81,12 +92,12 @@ public class UserController {
                          @RequestParam("username") String username,
                          @RequestParam("email") String email,
                          @RequestParam("password") String password,
-                         @RequestParam("enabled") Boolean enabled,
+                         @RequestParam(value = "enabled", required = false) Boolean enabled,
                          @RequestParam("role") Role role,
-                         @RequestParam("firstName") String firstName,
-                         @RequestParam("lastName") String lastName,
-                         @RequestParam("dateOfBirth") Date dateOfBirth,
-                         @RequestParam("gender") Gender gender
+                         @RequestParam(value = "firstName",  required = false) String firstName,
+                         @RequestParam(value = "lastName", required = false) String lastName,
+                         @RequestParam(value = "dateOfBirth", required = false) Date dateOfBirth,
+                         @RequestParam(value = "gender",  required = false) Gender gender
     ) {
         UpdateUserRequest request = new UpdateUserRequest();
         request.setUsername(username);
