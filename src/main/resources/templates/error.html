@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <title>Quiz API: 404</title>
+    <title th:text="'Quiz API: ' + ${errorMessage}"></title>
     <header th:insert="fragments/general.html :: head"></header>
 </head>
 <body>
-<header th:insert="fragments/general.html :: navigation"> </header>
+<header th:insert="fragments/general.html :: navigation"></header>
 
 <div class="container-fluid m-2">
-    <div>404 Page Not Found</div>
+    <h3 class="text-center" th:text="${errorMessage}"></h3>
 </div>
 
 </body>
