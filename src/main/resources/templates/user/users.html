@@ -5,44 +5,46 @@
     <header th:insert="fragments/general.html :: head"></header>
 </head>
 <body>
-<header th:insert="fragments/general.html :: navigation"> </header>
+<header th:insert="fragments/general.html :: navigation"></header>
+
+<h3 class="text-center p-3"><span th:text="${users.size()}"></span> Users</h3>
 
 <div class="container-fluid">
-    <h3 class="text-center p-3"><span th:text="${users.size()}"></span> Users</h3>
-
-    <div class="container-fluid">
-        <table th:if="${users.size() > 0}" class="table">
-            <tr>
-                <th scope="col" style="width:10%">Id</th>
-                <th scope="col">Username</th>
-                <th scope="col">Email</th>
-                <th scope="col">Role</th>
-                <th scope="col" style="width:10%">Edit</th>
-                <th scope="col" style="width:10%">Delete</th>
-            </tr>
-            <tr th:each="user: ${users}">
-                <td style="vertical-align: middle;" th:text="${user.getId()}">Id</td>
-                <td style="vertical-align: middle;" th:text="${user.getUsername()}">Username</td>
-                <td style="vertical-align: middle;" th:text="${user.getEmail()}">Email</td>
-                <td style="vertical-align: middle;" th:text="${user.getRole()}">Role</td>
-                <td>
-                    <form class="form-inline" action="#" th:action="@{/users/{id}/edit(id=${user.getId()})}" th:method="GET">
-                        <button type="submit" class="btn btn-link text-dark" title="Edit User"><i class="fas fa-edit"></i></button>
-                    </form>
-                </td>
-                <td>
-                    <form class="form-inline" action="#" th:action="@{/users/{id}(id=${user.getId()})}" th:method="DELETE">
-                        <button type="submit" class="btn btn-link text-danger" title="Delete User"><i class="fas fa-trash"></i></button>
-                    </form>
-                </td>
-            </tr>
-        </table>
-        <div>
-            <form method="get" action="/users/create">
-                <button class="btn btn-success" type="submit">Create user</button>
-            </form>
-        </div>
+    <table th:if="${users.size() > 0}" class="table">
+        <tr>
+            <th scope="col" style="width:10%">Id</th>
+            <th scope="col">Username</th>
+            <th scope="col">Email</th>
+            <th scope="col">Role</th>
+            <th scope="col" style="width:10%">Edit</th>
+            <th scope="col" style="width:10%">Delete</th>
+        </tr>
+        <tr th:each="user: ${users}">
+            <td style="vertical-align: middle;" th:text="${user.getId()}">Id</td>
+            <td style="vertical-align: middle;" th:text="${user.getUsername()}">Username</td>
+            <td style="vertical-align: middle;" th:text="${user.getEmail()}">Email</td>
+            <td style="vertical-align: middle;" th:text="${user.getRole()}">Role</td>
+            <td>
+                <form class="form-inline" action="#" th:action="@{/users/{id}/edit(id=${user.getId()})}"
+                      th:method="GET">
+                    <button type="submit" class="btn btn-link text-dark" title="Edit User"><i class="fas fa-edit"></i>
+                    </button>
+                </form>
+            </td>
+            <td>
+                <form class="form-inline" action="#" th:action="@{/users/{id}(id=${user.getId()})}" th:method="DELETE">
+                    <button type="submit" class="btn btn-link text-danger" title="Delete User"><i
+                            class="fas fa-trash"></i></button>
+                </form>
+            </td>
+        </tr>
+    </table>
+    <div>
+        <form method="get" action="/users/create">
+            <button class="btn btn-success" type="submit">Create user</button>
+        </form>
     </div>
+</div>
 </div>
 
 </body>

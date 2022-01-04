@@ -5,10 +5,23 @@
     <header th:insert="fragments/general.html :: head"></header>
 </head>
 <body>
-<header th:insert="fragments/general.html :: navigation"> </header>
+<header th:insert="fragments/general.html :: navigation"></header>
+
+<h3 class="text-center p-3">Dashboard</h3>
 
 <div class="container-fluid">
-    <h3 class="text-center p-3">Index</h3>
+    <div class="row">
+        <div th:each="module: ${modules}" class="col-sm-6 p-2">
+            <div class="card w-100">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${module.getTitle()}"></h5>
+                    <p class="card-text" th:text="${module.getDescription()}"></p>
+                    <a th:href="@{/{module}(module=${module.getTitle().toLowerCase()})}" class="btn btn-success">Page</a>
+                    <a th:href="@{/api/v1/{module}(module=${module.getTitle().toLowerCase()})}" target="_blank" class="btn btn-dark">API</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>
