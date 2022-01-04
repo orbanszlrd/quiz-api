@@ -14,6 +14,10 @@ public class UserQuizService {
         return userQuizRepository.findAll();
     }
 
+    public UserQuiz findById(Long id) {
+        return userQuizRepository.findById(id).orElseThrow(RuntimeException::new);
+    }
+
     public UserQuiz add(UserQuiz userQuiz) {
         return userQuizRepository.save(userQuiz);
     }
@@ -21,10 +25,6 @@ public class UserQuizService {
     public UserQuiz update(Long id, UserQuiz userQuiz) {
         userQuiz.setId(id);
         return userQuizRepository.save(userQuiz);
-    }
-
-    public UserQuiz findById(Long id) {
-        return userQuizRepository.findById(id).orElseThrow(RuntimeException::new);
     }
 
     public void deleteById(Long id) {

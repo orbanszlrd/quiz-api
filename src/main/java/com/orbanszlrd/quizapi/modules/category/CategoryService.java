@@ -14,6 +14,10 @@ public class CategoryService {
         return categoryRepository.findAll();
     }
 
+    public Category findById(Long id) {
+        return categoryRepository.findById(id).orElseThrow(RuntimeException::new);
+    }
+
     public Category add(Category category) {
         return categoryRepository.save(category);
     }
@@ -23,11 +27,11 @@ public class CategoryService {
         return categoryRepository.save(category);
     }
 
-    public Category findById(Long id) {
-        return categoryRepository.findById(id).orElseThrow(RuntimeException::new);
-    }
-
     public void deleteById(Long id) {
         categoryRepository.deleteById(id);
+    }
+
+    public long count() {
+        return categoryRepository.count();
     }
 }

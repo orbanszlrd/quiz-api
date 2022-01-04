@@ -15,6 +15,14 @@ public class QuizService {
         return quizRepository.findAll();
     }
 
+    public List<Quiz> findByCategoryId(Long categoryId) {
+        return quizRepository.findByCategoryId(categoryId);
+    }
+
+    public Quiz findById(Long id) {
+        return quizRepository.findById(id).orElseThrow(RuntimeException::new);
+    }
+
     public Quiz add(Quiz quiz) {
         return quizRepository.save(quiz);
     }
@@ -24,15 +32,11 @@ public class QuizService {
         return quizRepository.save(quiz);
     }
 
-    public Quiz findById(Long id) {
-        return quizRepository.findById(id).orElseThrow(RuntimeException::new);
-    }
-
     public void deleteById(Long id) {
         quizRepository.deleteById(id);
     }
 
-    public List<Quiz> findByCategoryId(Long categoryId) {
-        return quizRepository.findByCategoryId(categoryId);
+    public long count() {
+        return quizRepository.count();
     }
 }

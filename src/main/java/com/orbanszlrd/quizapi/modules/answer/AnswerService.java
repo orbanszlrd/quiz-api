@@ -15,6 +15,18 @@ public class AnswerService {
         return answerRepository.findAll();
     }
 
+    public List<Answer> findByQuestionId(Long questionId) {
+        return answerRepository.findByQuestionId(questionId);
+    }
+
+    public List<Answer> findCorrectAnswersByQuestionId(Long questionId) {
+        return answerRepository.findCorrectAnswersByQuestionId(questionId);
+    }
+
+    public Answer findById(Long id) {
+        return answerRepository.findById(id).orElseThrow(RuntimeException::new);
+    }
+
     public Answer add(Answer answer) {
         return answerRepository.save(answer);
     }
@@ -24,19 +36,11 @@ public class AnswerService {
         return answerRepository.save(answer);
     }
 
-    public Answer findById(Long id) {
-        return answerRepository.findById(id).orElseThrow(RuntimeException::new);
-    }
-
     public void deleteById(Long id) {
         answerRepository.deleteById(id);
     }
 
-    public List<Answer> findByQuestionId(Long questionId) {
-        return answerRepository.findByQuestionId(questionId);
-    }
-
-    public List<Answer> findCorrectAnswersByQuestionId(Long questionId) {
-        return answerRepository.findCorrectAnswersByQuestionId(questionId);
+    public long count() {
+        return answerRepository.count();
     }
 }

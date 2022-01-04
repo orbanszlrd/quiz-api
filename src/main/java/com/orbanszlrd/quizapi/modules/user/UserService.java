@@ -38,6 +38,11 @@ public class UserService implements UserDetailsService {
         return modelMapper.map(userRepository.findAll(), type);
     }
 
+    public UserResponse findById(Long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+        return modelMapper.map(user, UserResponse.class);
+    }
+
     public UserResponse add(InsertUserRequest insertUserRequest) {
         User user = modelMapper.map(insertUserRequest, User.class);
         user.setPassword(passwordEncoder.encode(insertUserRequest.getPassword()));
@@ -54,11 +59,6 @@ public class UserService implements UserDetailsService {
 
         userRepository.save(user);
 
-        return modelMapper.map(user, UserResponse.class);
-    }
-
-    public UserResponse findById(Long id) {
-        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
         return modelMapper.map(user, UserResponse.class);
     }
 
