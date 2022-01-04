@@ -14,7 +14,6 @@ import java.util.Objects;
 
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
 @Data
 @Table(name = "users")
 public class User {
@@ -45,9 +44,11 @@ public class User {
     private Gender gender;
 
     @CreationTimestamp
+    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", updatable = false)
     private Timestamp createdAt;
 
     @UpdateTimestamp
+    @Column(insertable = false)
     private Timestamp updatedAt;
 
     public User(Long id, String username, String email, String password, boolean enabled, Role role) {
@@ -65,16 +66,6 @@ public class User {
         this.password = password;
         this.enabled = enabled;
         this.role = role;
-    }
-
-    @PrePersist
-    protected void onCreate() {
-        createdAt = Timestamp.valueOf(LocalDateTime.now());
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        updatedAt = Timestamp.valueOf(LocalDateTime.now());
     }
 
     @Override

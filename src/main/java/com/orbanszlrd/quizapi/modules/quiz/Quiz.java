@@ -31,9 +31,11 @@ public class Quiz {
     private List<Question> questions;
 
     @CreationTimestamp
+    @Column(updatable = false)
     private Timestamp createdAt;
 
     @UpdateTimestamp
+    @Column(insertable = false)
     private Timestamp updatedAt;
 
     public Quiz(Long id, String name, Integer timeLimit, Category category) {

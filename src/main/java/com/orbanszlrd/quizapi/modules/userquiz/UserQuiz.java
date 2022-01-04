@@ -1,7 +1,7 @@
-package com.orbanszlrd.quizapi.modules.category;
+package com.orbanszlrd.quizapi.modules.userquiz;
 
 import com.orbanszlrd.quizapi.modules.quiz.Quiz;
-import lombok.AllArgsConstructor;
+import com.orbanszlrd.quizapi.modules.user.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -9,20 +9,20 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.List;
 
+@Entity
 @Data
 @NoArgsConstructor
-@Entity
-public class Category {
+public class UserQuiz {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User user;
 
-    @OneToMany(mappedBy = "category")
-    private List<Quiz> quizzes;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Quiz quiz;
 
     @CreationTimestamp
     @Column(updatable = false)
@@ -32,12 +32,14 @@ public class Category {
     @Column(insertable = false)
     private Timestamp updatedAt;
 
-    public Category(Long id, String name) {
-        this.id = id;
-        this.name = name;
+    public UserQuiz(User user, Quiz quiz) {
+        this.user = user;
+        this.quiz = quiz;
     }
 
-    public Category(String name) {
-        this.name = name;
+    public UserQuiz(Long id, User user, Quiz quiz) {
+        this.id = id;
+        this.user = user;
+        this.quiz = quiz;
     }
 }

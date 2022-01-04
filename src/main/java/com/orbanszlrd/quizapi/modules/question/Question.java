@@ -33,9 +33,11 @@ public class Question {
     private List<Answer> answers;
 
     @CreationTimestamp
+    @Column(updatable = false)
     private Timestamp createdAt;
 
     @UpdateTimestamp
+    @Column(insertable = false)
     private Timestamp updatedAt;
 
     public Question(String text, Integer timeLimit, Byte value, Quiz quiz) {
