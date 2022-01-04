@@ -1,7 +1,8 @@
-package com.orbanszlrd.quizapi.modules.answer;
+package com.orbanszlrd.quizapi.modules.useranswer;
 
+import com.orbanszlrd.quizapi.modules.answer.Answer;
 import com.orbanszlrd.quizapi.modules.question.Question;
-import lombok.AllArgsConstructor;
+import com.orbanszlrd.quizapi.modules.userquiz.UserQuiz;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -10,20 +11,22 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
+@Entity
 @Data
 @NoArgsConstructor
-@Entity
-public class Answer {
+public class UserAnswer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String text;
-
-    private Boolean correct;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private UserQuiz userQuiz;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Question question;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Answer answer;
 
     @CreationTimestamp
     @Column(updatable = false)
@@ -33,16 +36,16 @@ public class Answer {
     @Column(insertable = false)
     private Timestamp updatedAt;
 
-    public Answer(String text, Boolean correct, Question question) {
-        this.text = text;
-        this.correct = correct;
+    public UserAnswer(UserQuiz userQuiz, Question question, Answer answer) {
+        this.userQuiz = userQuiz;
         this.question = question;
+        this.answer = answer;
     }
 
-    public Answer(Long id, String text, Boolean correct, Question question) {
+    public UserAnswer(Long id, UserQuiz userQuiz, Question question, Answer answer) {
         this.id = id;
-        this.text = text;
-        this.correct = correct;
+        this.userQuiz = userQuiz;
         this.question = question;
+        this.answer = answer;
     }
 }
