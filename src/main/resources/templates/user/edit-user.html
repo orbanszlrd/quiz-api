@@ -7,67 +7,67 @@
 <body>
 <header th:insert="fragments/general.html :: navigation"></header>
 
-<h3 class="text-center p-3">Edit User</h3>
+<h3 class="text-center p-2">Edit User</h3>
 
 <div class="container-fluid">
     <form action="#" th:action="${action}" th:method="${method}">
-        <div class="form-group p-2">
-            <label for="username">Username</label>
+        <div class="form-floating p-1">
             <input class="form-control" type="text" placeholder="Username" id="username" name="username"
                    th:value="${user.getUsername()}">
+            <label for="username">Username</label>
         </div>
-        <div class="form-group p-2">
-            <label for="email">Email</label>
+        <div class="form-floating p-1">
             <input class="form-control" type="text" placeholder="Email Address" id="email" name="email"
                    th:value="${user.getEmail()}">
+            <label for="email">Email</label>
         </div>
 
-        <div class="form-group p-2">
-            <label for="password">Password</label>
+        <div class="form-floating p-1">
             <input class="form-control" type="password" placeholder="Password" id="password" name="password" value="">
+            <label for="password">Password</label>
         </div>
 
-        <div class="form-group p-2">
-            <label for="firstName">First Name</label>
+        <div class="form-floating p-1">
             <input class="form-control" type="text" placeholder="First Name" id="firstName" name="firstName"
                    th:value="${user.getFirstName()}">
+            <label for="firstName">First Name</label>
         </div>
 
-        <div class="form-group p-2">
-            <label for="lastName">Last Name</label>
+        <div class="form-floating p-1">
             <input class="form-control" type="text" placeholder="Last Name" id="lastName" name="lastName"
                    th:value="${user.getLastName()}">
+            <label for="lastName">Last Name</label>
         </div>
 
-        <div class="form-group p-2">
-            <label for="dateOfBirth">Date of Birth</label>
+        <div class="form-floating p-1">
             <input class="form-control" type="text" placeholder="2000-01-01" id="dateOfBirth" name="dateOfBirth"
                    th:value="${user.getDateOfBirth()}">
+            <label for="dateOfBirth">Date of Birth</label>
         </div>
 
-        <div class="form-group p-2">
-            <label for="gender">Gender</label>
+        <div class="form-floating p-1">
             <select class="form-control" id="gender" name="gender">
                 <option th:each="gender: ${genders}" th:value="${gender}" th:text="${gender}"
                         th:selected="${gender == user.getGender()}"></option>
             </select>
+            <label for="gender">Gender</label>
         </div>
 
-        <div class="form-group p-2">
-            <label for="role">Role</label>
+        <div class="form-floating p-1">
             <select class="form-control" id="role" name="role">
                 <option th:each="role: ${roles}" th:value="${role}" th:text="${role}"
                         th:selected="${role == user.getRole()}"></option>
             </select>
+            <label for="role">Role</label>
         </div>
 
-        <div class="form-group p-2">
-            <label for="enabled">Enabled</label>
+        <div class="form-group p-1">
             <input class="form-check-input" type="checkbox" id="enabled" name="enabled"
                    th:checked="${user.isEnabled()}">
+            <label for="enabled">Enabled</label>
         </div>
 
-        <div class="form-group p-2">
+        <div class="form-group p-1">
             <button type="submit" class="btn btn-success">Save</button>
             <a class="btn btn-secondary" href="/users">All Users</a>
         </div>
