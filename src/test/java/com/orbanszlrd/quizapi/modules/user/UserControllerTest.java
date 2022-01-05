@@ -9,6 +9,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
@@ -28,6 +29,7 @@ class UserControllerTest {
     private UserService userService;
 
     @Test
+    @WithMockUser(roles = "USER")
     void findAll() throws Exception {
         when(userService.findAll()).thenReturn(List.of(new UserResponse(1L, "user", "user@email.com", true, Role.USER)));
 
@@ -38,6 +40,7 @@ class UserControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "USER")
     void create() throws Exception {
         when(userService.count()).thenReturn(0L);
 
@@ -49,6 +52,7 @@ class UserControllerTest {
 
     @ParameterizedTest
     @ValueSource(longs = {1, 2, 3})
+    @WithMockUser(roles = "USER")
     void details(Long id) throws Exception {
         when(userService.findById(id)).thenReturn(new UserResponse(id, "user" + id, "user" + id + "@email.com", true, Role.USER));
 
@@ -60,6 +64,7 @@ class UserControllerTest {
 
     @ParameterizedTest
     @ValueSource(longs = {1, 2, 3})
+    @WithMockUser(roles = "USER")
     void edit(Long id) throws Exception {
         when(userService.findById(id)).thenReturn(new UserResponse(id, "user" + id, "user" + id + "@email.com", true, Role.USER));
 
@@ -70,6 +75,7 @@ class UserControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     void add() throws Exception {
         InsertUserRequest insertUserRequest = new InsertUserRequest("user", "user@email.com", "1234", Role.USER);
         insertUserRequest.setEnabled(true);
@@ -94,6 +100,7 @@ class UserControllerTest {
 
     @ParameterizedTest
     @ValueSource(longs = {1, 2, 3})
+    @WithMockUser(roles = "ADMIN")
     void update(Long id) throws Exception {
         UpdateUserRequest updateUserRequest = new UpdateUserRequest("user", "user@email.com", "1234", true, Role.USER);
         UserResponse userResponse = new UserResponse();
@@ -117,6 +124,7 @@ class UserControllerTest {
 
     @ParameterizedTest
     @ValueSource(longs = {1, 2, 3})
+    @WithMockUser(roles = "ADMIN")
     void deleteById(Long id) throws Exception {
         doNothing().when(userService).deleteById(id);
 
