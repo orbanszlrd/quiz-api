@@ -22,6 +22,55 @@ end caption
 
 left to right direction
 
+enum Role {
+    OWNER
+    ADMIN
+    USER
+}
+
+enum Gender {
+    MALE
+    FEMALE
+    OTHER
+}
+
+class  User {
+    - Long id
+    - String email
+    - String username
+    - String password
+    - boolean enabled
+    - Role role
+    - String firstName
+    - String LastName
+    - Date dateOfBirth
+    - Gender gender
+    - Timestamp createdAt
+    - Timestamp updatedAt
+    + Long getId()
+    + void setId(Long id)
+    + String getEmail()
+    + void setEmail(String email)
+    + String getUsername()
+    + void setUsername(String username)
+    + String getPassword()
+    + void setPassword(String password)
+    + boolean isEnabled()
+    + void setEnabled(boolean enabled)
+    + Role getRole()
+    + void setRole(Role role)
+    + String getFirstName()
+    + void setFirstName(String firstName)
+    + String getLastName()
+    + void setLastName(String lastName)
+    + Date getDateOfBirth()
+    + void setDateOfBirth(Date dateOfBirth)
+    + Gender getGender()
+    + void setGender(Gender gender)
+    + Timestamp getCreatedAt()
+    + Timestamp getUpdatedAt()
+}
+
 class Category {
     - Long id
     - String name
@@ -62,21 +111,23 @@ class Question {
     - Long id
     - String text
     - Integer timeLimit
+    - Byte value
     - Quiz quiz
     - List<Answer> answers
-    - Byte value
     - Timestamp createdAt
     - Timestamp updatedAt
     + Long getId()
     + void setId(Long id)
     + String getText()
     + void setText(String text)
+    + Integer getTimeLimit()
+    + void setTimeLimit(Integer timeLimit)
+    + Byte getValue()
+    + void setValue(Byte value)
     + Quiz getQuiz()
     + void setQuiz(Quiz quiz)
     + List<Answer> getAnswers()
     + void setAnswers(Answer answer)
-    + Byte getValue()
-    + void setValue(Byte value)
     + Timestamp getCreatedAt()
     + Timestamp getUpdatedAt()
 }
@@ -85,7 +136,7 @@ class Answer {
     - Long id
     - String text
     - Question question    
-    - Boolean correct
+    - boolean correct
     - Timestamp createdAt
     - Timestamp updatedAt
     + Long getId()
@@ -94,45 +145,8 @@ class Answer {
     + void setText(String text)
     + Question getQuestion()
     + void setQuestion(Question question)
-    + Boolean isCorrect()
-    + void setCorrect(Boolean correct)
-    + Timestamp getCreatedAt()
-    + Timestamp getUpdatedAt()
-}
-
-class  User {
-    - Long id
-    - String email
-    - String username
-    - String password
-    - boolean enabled
-    - Role role
-    - String firstName
-    - String LastName
-    - Date dateOfBirth
-    - Gender gender
-    - Timestamp createdAt
-    - Timestamp updatedAt
-    + Long getId()
-    + void setId(Long id)
-    + String getEmail()
-    + void setEmail(String email)
-    + String getUsername()
-    + void setUsername(String username)
-    + String getPassword()
-    + void setPassword(String password)
-    + boolean isEnabled()
-    + void setEnabled(boolean enabled)
-    + Role getRole()
-    + void setRole(Role role)
-    + String getFirstName()
-    + void setFirstName(String firstName)
-    + String getLastName()
-    + void setLastName(String lastName)
-    + Date getDateOfBirth()
-    + void setDateOfBirth(Date dateOfBirth)
-    + Gender getGender()
-    + void setGender(Gender gender)
+    + boolean isCorrect()
+    + void setCorrect(boolean correct)
     + Timestamp getCreatedAt()
     + Timestamp getUpdatedAt()
 }
@@ -172,26 +186,24 @@ class  UserAnswer {
     + Timestamp getUpdatedAt()
 }
 
-enum Role {
-    OWNER
-    ADMIN
-    USER
-}
+User o-- Role
+User o-- Gender
 
-enum Gender {
-    MALE
-    FEMALE
-}
+Category "1" o-- "n" Quiz
 
-Category "1" *-- "many" Quiz
-Quiz "1" *-- "many" Question
-Question "1" *-- "many" Answer
-Role "1" --* "many" User
-Gender "1" --* "many" User
-User "1" --* "many" UserQuiz
-Quiz "1" --* "many" UserQuiz
-UserQuiz "1" *-- "many" UserAnswer
-Question "1" *-- "many" UserAnswer
-Answer "1" *-- "many" UserAnswer
+Quiz o-- Category
+Quiz "1" o-- "n" Question
+
+Question o-- Quiz
+Question "1" o-- "n" Answer
+
+Answer o-- Question
+
+UserQuiz o-- User
+UserQuiz o-- Quiz
+
+UserAnswer o-- UserQuiz
+UserAnswer o-- Question
+UserAnswer o-- Answer
 
 @enduml

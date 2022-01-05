@@ -20,7 +20,7 @@ public class Answer {
 
     private String text;
 
-    private Boolean correct;
+    private boolean correct;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Question question;

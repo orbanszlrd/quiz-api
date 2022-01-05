@@ -1,0 +1,185 @@
+@startuml
+
+!theme spacelab
+
+enum Role {
+    OWNER
+    ADMIN
+    USER
+}
+
+enum Gender {
+    MALE
+    FEMALE
+    OTHER
+}
+
+class User {
+    - Long id
+    - String username
+    - String email
+    - String password
+    - boolean enabled
+    - Role role
+    - String firstName
+    - String lastName
+    - Date dateOfBirth
+    - Gender gender
+    - Timestamp createdAt
+    - Timestamp updatedAt
+}
+
+class UserResponse {
+    - Long id
+    - String username
+    - String email
+    - boolean enabled
+    - Role role
+    - String firstName
+    - String lastName
+    - Date dateOfBirth
+    - Gender gender
+    - Timestamp createdAt
+    - Timestamp updatedAt
+    + UserResponse(Long id, String username, String email, boolean enabled, Role role)
+}
+
+class InsertUserRequest {
+    - String username
+    - String email
+    - String password
+    - Boolean enabled
+    - Role role
+    - String firstName
+    - String lastName
+    - Date dateOfBirth
+    - Gender gender
+    + InsertUserRequest(String username, String email, String password, Role role)
+}
+
+class UpdateUserRequest {
+    - String username
+    - String email
+    - String password
+    - Boolean enabled
+    - Role role
+    - String firstName
+    - String lastName
+    - Date dateOfBirth
+    - Gender gender
+    + UpdateUserRequest(String username, String email, String password, Boolean enabled, Role role)
+}
+
+interface UserDetails {
+    + Collection<? extends GrantedAuthority> getAuthorities()
+    + String getPassword()
+    + String getUsername()
+    + boolean isAccountNonExpired()
+    + boolean isAccountNonLocked()
+    + boolean isCredentialsNonExpired()
+    + boolean isEnabled()
+}
+
+class AppUserDetails implements UserDetails {
+    - String username;
+    - String password;
+    - boolean enabled;
+    - List<GrantedAuthority> authorities
+    + AppUserDetails(User user)
+    + Collection<? extends GrantedAuthority> getAuthorities()
+    + String getPassword()
+    + String getUsername()
+    + boolean isAccountNonExpired()
+    + boolean isAccountNonLocked()
+    + boolean isCredentialsNonExpired()
+    + boolean isEnabled()
+}
+
+interface UserRepository {
+    Optional<User> findByUsername(String username);
+    List<User> findAll()
+    Optional<User> findById(Long id)
+    User save(User user)
+    void deleteById(Long id)
+    long count()
+}
+
+interface PasswordEncoder {
+    String encode(CharSequence rawPassword)
+    boolean matches(CharSequence rawPassword, String encodedPassword)
+    default boolean upgradeEncoding(String encodedPassword)
+}
+
+class ModelMapper {
+    + D map(Object source, Class<D> destinationType)
+}
+
+class UserService  {
+    - UserRepository userRepository
+    - PasswordEncoder passwordEncoder
+    - ModelMapper modelMapper
+    + UserDetails loadUserByUsername(String username)
+    + List<UserResponse> findAll()
+    + UserResponse findById(Long id)
+    + UserResponse add(InsertUserRequest insertUserRequest)
+    + UserResponse update(Long id, UpdateUserRequest updateUserRequest)
+    + void deleteById(Long id)
+    + long count()
+}
+
+class UserModelAssembler {
+    + EntityModel<UserResponse> toModel(UserResponse userResponse)
+}
+
+class UserRestController {
+    - UserService userService
+    - UserModelAssembler userModelAssembler
+    + CollectionModel<EntityModel<UserResponse>> findAll()
+    + EntityModel<UserResponse> findById(Long id)
+    + EntityModel<UserResponse> add(InsertUserRequest insertUserRequest)
+    + EntityModel<UserResponse> update(Long id, UpdateUserRequest updateUserRequest)
+    + void deleteById(Long id)
+}
+
+class UserController {
+    - UserService userService
+    + String findAll(Model model)
+    + String create(Model model)
+    + String details(Long id, Model model)
+    + String edit(Long id, Model model)
+    + String add(String username, String email, String password, Boolean enabled, Role role, String firstName, String lastName, Date dateOfBirth, Gender gender)
+    + String update(Long id, String username, String email, String password, Boolean enabled, Role role, String firstName, String lastName, Date dateOfBirth, Gender gender)
+    + String deleteById(Long id)
+}
+
+User o-- Gender
+UserResponse o-- Gender
+InsertUserRequest o-- Gender
+UpdateUserRequest o-- Gender
+User o-- Role
+UserResponse o-- Role
+InsertUserRequest o-- Role
+UpdateUserRequest o-- Role
+UserResponse --> UserModelAssembler
+AppUserDetails --> User
+UserRepository --> User
+UserService --> UserDetails
+UserService --> UserResponse
+UserService --> InsertUserRequest
+UserService --> UpdateUserRequest
+UserService o-- UserRepository
+UserService o-- PasswordEncoder
+UserService o-- ModelMapper
+UserRestController --> UserResponse
+UserRestController --> InsertUserRequest
+UserRestController --> UpdateUserRequest
+UserRestController o-- UserService
+UserRestController o-- UserModelAssembler
+UserController --> Role
+UserController --> Gender
+UserController --> UserResponse
+UserController --> InsertUserRequest
+UserController --> UpdateUserRequest
+UserController o-- UserService
+
+@enduml
