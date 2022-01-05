@@ -4,6 +4,7 @@ import com.orbanszlrd.quizapi.modules.user.Gender;
 import com.orbanszlrd.quizapi.modules.user.Role;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -12,6 +13,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 @Data
+@NoArgsConstructor
 public class UserResponse {
     @Schema(description = "The id of the user", example = "1", required = true)
     private Long id;
@@ -52,4 +54,12 @@ public class UserResponse {
 
     @Schema(description = "The last update timestamp of the user", example = "2021-12-31T00:00:00.000Z")
     private Timestamp updatedAt;
+
+    public UserResponse(Long id, String username, String email, boolean enabled, Role role) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.enabled = enabled;
+        this.role = role;
+    }
 }
