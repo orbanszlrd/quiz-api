@@ -1,5 +1,6 @@
 package com.orbanszlrd.quizapi.modules.user;
 
+import com.auth0.jwt.algorithms.Algorithm;
 import com.orbanszlrd.quizapi.modules.user.dto.InsertUserRequest;
 import com.orbanszlrd.quizapi.modules.user.dto.UpdateUserRequest;
 import com.orbanszlrd.quizapi.modules.user.dto.UserResponse;
@@ -28,6 +29,9 @@ class UserControllerTest {
     @MockBean
     private UserService userService;
 
+    @MockBean
+    private Algorithm algorithm;
+
     @Test
     @WithMockUser(roles = "USER")
     void findAll() throws Exception {
@@ -40,7 +44,7 @@ class UserControllerTest {
     }
 
     @Test
-    @WithMockUser(roles = "USER")
+    @WithMockUser(roles = "ADMIN")
     void create() throws Exception {
         when(userService.count()).thenReturn(0L);
 
@@ -52,7 +56,7 @@ class UserControllerTest {
 
     @ParameterizedTest
     @ValueSource(longs = {1, 2, 3})
-    @WithMockUser(roles = "USER")
+    @WithMockUser(roles = "ADMIN")
     void details(Long id) throws Exception {
         when(userService.findById(id)).thenReturn(new UserResponse(id, "user" + id, "user" + id + "@email.com", true, Role.USER));
 
@@ -64,7 +68,7 @@ class UserControllerTest {
 
     @ParameterizedTest
     @ValueSource(longs = {1, 2, 3})
-    @WithMockUser(roles = "USER")
+    @WithMockUser(roles = "ADMIN")
     void edit(Long id) throws Exception {
         when(userService.findById(id)).thenReturn(new UserResponse(id, "user" + id, "user" + id + "@email.com", true, Role.USER));
 
