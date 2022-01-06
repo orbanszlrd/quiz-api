@@ -36,7 +36,6 @@ public class UserController {
         user.setEnabled(true);
         user.setRole(Role.USER);
         user.setGender(Gender.OTHER);
-        user.setDateOfBirth(Date.valueOf("2000-01-01"));
 
         model.addAttribute("user", user);
         model.addAttribute("roles", Role.values());
@@ -76,10 +75,10 @@ public class UserController {
             @RequestParam("password") String password,
             @RequestParam(value = "enabled", required = false) Boolean enabled,
             @RequestParam("role") Role role,
-            @RequestParam(value = "firstName",  required = false) String firstName,
+            @RequestParam(value = "firstName", required = false) String firstName,
             @RequestParam(value = "lastName", required = false) String lastName,
-            @RequestParam(value = "dateOfBirth", required = false) Date dateOfBirth,
-            @RequestParam(value = "gender",  required = false) Gender gender
+            @RequestParam(value = "dateOfBirth", required = false, defaultValue = "1900-01-01") Date dateOfBirth,
+            @RequestParam(value = "gender", required = false) Gender gender
     ) {
         InsertUserRequest request = new InsertUserRequest();
         request.setUsername(username);
@@ -89,8 +88,11 @@ public class UserController {
         request.setEnabled(enabled);
         request.setFirstName(firstName);
         request.setLastName(lastName);
-        request.setDateOfBirth(dateOfBirth);
         request.setGender(gender);
+
+        if (!dateOfBirth.equals(Date.valueOf("1900-01-01"))) {
+            request.setDateOfBirth(dateOfBirth);
+        }
 
         userService.add(request);
 
@@ -104,11 +106,12 @@ public class UserController {
                          @RequestParam("password") String password,
                          @RequestParam(value = "enabled", required = false) Boolean enabled,
                          @RequestParam("role") Role role,
-                         @RequestParam(value = "firstName",  required = false) String firstName,
+                         @RequestParam(value = "firstName", required = false) String firstName,
                          @RequestParam(value = "lastName", required = false) String lastName,
-                         @RequestParam(value = "dateOfBirth", required = false) Date dateOfBirth,
-                         @RequestParam(value = "gender",  required = false) Gender gender
+                         @RequestParam(value = "dateOfBirth", required = false, defaultValue = "1900-01-01") Date dateOfBirth,
+                         @RequestParam(value = "gender", required = false) Gender gender
     ) {
+
         UpdateUserRequest request = new UpdateUserRequest();
         request.setUsername(username);
         request.setEmail(email);
@@ -117,8 +120,11 @@ public class UserController {
         request.setRole(role);
         request.setFirstName(firstName);
         request.setLastName(lastName);
-        request.setDateOfBirth(dateOfBirth);
         request.setGender(gender);
+
+        if (!dateOfBirth.equals(Date.valueOf("1900-01-01"))) {
+            request.setDateOfBirth(dateOfBirth);
+        }
 
         userService.update(id, request);
 
