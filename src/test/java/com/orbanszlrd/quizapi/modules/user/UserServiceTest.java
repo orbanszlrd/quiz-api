@@ -1,9 +1,12 @@
 package com.orbanszlrd.quizapi.modules.user;
 
-import com.orbanszlrd.quizapi.modules.user.dto.InsertUserRequest;
-import com.orbanszlrd.quizapi.modules.user.dto.UserResponse;
-import com.orbanszlrd.quizapi.modules.user.dto.UpdateUserRequest;
-import org.junit.jupiter.api.BeforeEach;
+import com.orbanszlrd.quizapi.modules.user.model.Role;
+import com.orbanszlrd.quizapi.modules.user.model.dto.InsertUserRequest;
+import com.orbanszlrd.quizapi.modules.user.model.dto.UserResponse;
+import com.orbanszlrd.quizapi.modules.user.model.dto.UpdateUserRequest;
+import com.orbanszlrd.quizapi.modules.user.model.User;
+import com.orbanszlrd.quizapi.modules.user.repository.UserRepository;
+import com.orbanszlrd.quizapi.modules.user.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;

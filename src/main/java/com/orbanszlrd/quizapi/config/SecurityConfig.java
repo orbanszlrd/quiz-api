@@ -3,14 +3,13 @@ package com.orbanszlrd.quizapi.config;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.orbanszlrd.quizapi.filter.JwtAuthenticationFilter;
 import com.orbanszlrd.quizapi.filter.JwtAuthorizationFilter;
-import com.orbanszlrd.quizapi.modules.user.UserService;
+import com.orbanszlrd.quizapi.modules.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity

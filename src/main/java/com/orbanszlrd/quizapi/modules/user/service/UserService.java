@@ -1,8 +1,11 @@
-package com.orbanszlrd.quizapi.modules.user;
+package com.orbanszlrd.quizapi.modules.user.service;
 
-import com.orbanszlrd.quizapi.modules.user.dto.InsertUserRequest;
-import com.orbanszlrd.quizapi.modules.user.dto.UserResponse;
-import com.orbanszlrd.quizapi.modules.user.dto.UpdateUserRequest;
+import com.orbanszlrd.quizapi.modules.user.model.AppUserDetails;
+import com.orbanszlrd.quizapi.modules.user.model.User;
+import com.orbanszlrd.quizapi.modules.user.repository.UserRepository;
+import com.orbanszlrd.quizapi.modules.user.model.dto.InsertUserRequest;
+import com.orbanszlrd.quizapi.modules.user.model.dto.UserResponse;
+import com.orbanszlrd.quizapi.modules.user.model.dto.UpdateUserRequest;
 import com.orbanszlrd.quizapi.modules.user.error.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

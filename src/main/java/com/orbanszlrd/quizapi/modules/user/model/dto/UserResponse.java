@@ -1,7 +1,7 @@
-package com.orbanszlrd.quizapi.modules.user.dto;
+package com.orbanszlrd.quizapi.modules.user.model.dto;
 
-import com.orbanszlrd.quizapi.modules.user.Gender;
-import com.orbanszlrd.quizapi.modules.user.Role;
+import com.orbanszlrd.quizapi.modules.user.model.Gender;
+import com.orbanszlrd.quizapi.modules.user.model.Role;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,10 +10,14 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 @Data
 @NoArgsConstructor
-public class InsertUserRequest {
+public class UserResponse {
+    @Schema(description = "The id of the user", example = "1", required = true)
+    private Long id;
+
     @NotBlank
     @Size(min = 6, max = 20)
     @Schema(description = "The username of the user", example = "dummy.user", required = true)
@@ -25,13 +29,8 @@ public class InsertUserRequest {
     @Schema(description = "The email of the user", example = "dummy@email.com", required = true)
     private String email;
 
-    @NotBlank
-    @Size(min = 10, max = 50)
-    @Schema(description = "The password of the user", example = "StrongPassword1234!", required = true)
-    private String password;
-
-    @Schema(description = "The status of the user account", example = "false", required = true)
-    private Boolean enabled;
+    @Schema(description = "The status of the user account", example = "true", required = true)
+    private boolean enabled;
 
     @Schema(description = "The role of the user", example = "USER", required = true)
     private Role role;
@@ -50,10 +49,17 @@ public class InsertUserRequest {
     @Schema(description = "The gender of the user", example = "MALE")
     private Gender gender;
 
-    public InsertUserRequest(String username, String email, String password, Role role) {
+    @Schema(description = "The creation timestamp of the user", example = "2021-12-31T00:00:00.000Z")
+    private Timestamp createdAt;
+
+    @Schema(description = "The last update timestamp of the user", example = "2021-12-31T00:00:00.000Z")
+    private Timestamp updatedAt;
+
+    public UserResponse(Long id, String username, String email, boolean enabled, Role role) {
+        this.id = id;
         this.username = username;
         this.email = email;
-        this.password = password;
+        this.enabled = enabled;
         this.role = role;
     }
 }

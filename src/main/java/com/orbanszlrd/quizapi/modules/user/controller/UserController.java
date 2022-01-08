@@ -1,8 +1,11 @@
-package com.orbanszlrd.quizapi.modules.user;
+package com.orbanszlrd.quizapi.modules.user.controller;
 
-import com.orbanszlrd.quizapi.modules.user.dto.InsertUserRequest;
-import com.orbanszlrd.quizapi.modules.user.dto.UpdateUserRequest;
-import com.orbanszlrd.quizapi.modules.user.dto.UserResponse;
+import com.orbanszlrd.quizapi.modules.user.model.Gender;
+import com.orbanszlrd.quizapi.modules.user.model.Role;
+import com.orbanszlrd.quizapi.modules.user.model.dto.InsertUserRequest;
+import com.orbanszlrd.quizapi.modules.user.model.dto.UpdateUserRequest;
+import com.orbanszlrd.quizapi.modules.user.model.dto.UserResponse;
+import com.orbanszlrd.quizapi.modules.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
