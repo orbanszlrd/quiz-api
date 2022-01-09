@@ -19,7 +19,7 @@ public class OpenApiConfig {
                         .description("Quiz API Documentation")
                         .version("v1.0.0")
                         .license(new License().name("MIT License").url("https://github.com/orbanszlrd/quiz-api/blob/main/LICENSE"))
-                        .contact(new Contact().name("Szilárd Orbán").email("orbanszlrd@yahoo.com"))
+                        .contact(new Contact().name("Szilárd Orbán").email("orbanszlrd@yahoo.com").url("http://quiz.dinodev.hu"))
                 );
     }
 }
