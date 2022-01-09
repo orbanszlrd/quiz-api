@@ -50,15 +50,6 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public String details(@PathVariable("id") Long id, Model model) {
-        UserResponse user = userService.findById(id);
-
-        model.addAttribute("user", user);
-
-        return "user/user-details";
-    }
-
-    @GetMapping("/{id}/edit")
     public String edit(@PathVariable("id") Long id, Model model) {
         UserResponse user = userService.findById(id);
 

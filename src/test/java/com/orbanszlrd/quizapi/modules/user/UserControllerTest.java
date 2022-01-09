@@ -75,7 +75,7 @@ class UserControllerTest {
     void edit(Long id) throws Exception {
         when(userService.findById(id)).thenReturn(new UserResponse(id, "user" + id, "user" + id + "@email.com", true, Role.USER));
 
-        this.mockMvc.perform(get("/users/{id}/edit", id))
+        this.mockMvc.perform(get("/users/{id}", id))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("user" + id)));
