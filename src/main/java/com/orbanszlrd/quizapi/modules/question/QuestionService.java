@@ -1,8 +1,6 @@
 package com.orbanszlrd.quizapi.modules.question;
 
-import com.orbanszlrd.quizapi.modules.quiz.Quiz;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

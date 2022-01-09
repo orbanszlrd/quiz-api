@@ -1,7 +1,7 @@
 package com.orbanszlrd.quizapi.modules.answer;
 
 import com.orbanszlrd.quizapi.modules.question.Question;
-import com.orbanszlrd.quizapi.modules.quiz.Quiz;
+import com.orbanszlrd.quizapi.modules.quiz.model.Quiz;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,7 +13,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)

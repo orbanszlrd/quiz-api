@@ -1,4 +1,4 @@
-package com.orbanszlrd.quizapi.modules.quiz;
+package com.orbanszlrd.quizapi.modules.quiz.model;
 
 import com.orbanszlrd.quizapi.modules.category.model.Category;
 import com.orbanszlrd.quizapi.modules.question.Question;
