@@ -1,5 +1,6 @@
 package com.orbanszlrd.quizapi.modules.user.service;
 
+import com.orbanszlrd.quizapi.modules.user.error.UserNotFoundException;
 import com.orbanszlrd.quizapi.modules.user.model.Role;
 import com.orbanszlrd.quizapi.modules.user.model.dto.InsertUserRequest;
 import com.orbanszlrd.quizapi.modules.user.model.dto.UserResponse;
@@ -22,6 +23,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -89,6 +91,13 @@ class UserServiceTest {
         assertThat(userResponse.getId()).isEqualTo(id);
         assertThat(userResponse.getUsername()).isEqualTo(user.getUsername());
         assertThat(userResponse.getEmail()).isEqualTo(user.getEmail());
+    }
+
+    @Test
+    void findById_throws_UserNotFoundException() {
+        Long id = 1L;
+        when(userRepository.findById(id)).thenReturn(Optional.empty());
+        assertThrows(UserNotFoundException.class, () -> userService.findById(id));
     }
 
     @ParameterizedTest

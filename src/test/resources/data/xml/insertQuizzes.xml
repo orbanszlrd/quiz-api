@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <category id="1" name="Programming"/>
+    <category id="2" name="Sport"/>
+    <quiz id="1" name="Angular Advanced" category_id="1"/>
+    <quiz id="2" name="Spring Security Basics" category_id="1"/>
+    <quiz id="3" name="Laravel Basics" category_id="1"/>
+    <quiz id="4" name="FIFA World Cup History" category_id="2"/>
+</dataset>

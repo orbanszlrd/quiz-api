@@ -4,6 +4,7 @@ import com.orbanszlrd.quizapi.modules.user.model.Role;
 import com.orbanszlrd.quizapi.modules.user.model.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -18,6 +19,7 @@ import java.util.Optional;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @DataJpaTest
+@DisplayName("Testing the UserRepository")
 class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
@@ -42,6 +44,7 @@ class UserRepositoryTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"owner", "admin", "user"})
+    @DisplayName("Find user by username")
     void findByUsername(String username) {
         Optional<User> userOptional = userRepository.findByUsername(username);
         assertThat(userOptional.isPresent()).isTrue();
@@ -50,6 +53,7 @@ class UserRepositoryTest {
 
     @ParameterizedTest
     @EnumSource(Role.class)
+    @DisplayName("Find users by their role")
     void findByRole(Role role) {
         Optional<User> userOptional = userRepository.findByRole(role);
         assertThat(userOptional.isPresent()).isTrue();
