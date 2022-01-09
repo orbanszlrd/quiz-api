@@ -1,5 +1,6 @@
 package com.orbanszlrd.quizapi.modules.user.controller;
 
+import com.orbanszlrd.quizapi.modules.category.controller.CategoryRestController;
 import com.orbanszlrd.quizapi.modules.user.util.UserModelAssembler;
 import com.orbanszlrd.quizapi.modules.user.model.dto.InsertUserRequest;
 import com.orbanszlrd.quizapi.modules.user.model.dto.UserResponse;
@@ -35,8 +36,10 @@ public class UserRestController {
     public CollectionModel<EntityModel<UserResponse>> findAll() {
         List<UserResponse> userResponses = userService.findAll();
         List<EntityModel<UserResponse>> userEntities = userResponses.stream().map(userModelAssembler::toModel).collect(Collectors.toList());
-        return CollectionModel.of(userEntities,
-                linkTo(methodOn(UserRestController.class).findAll()).withSelfRel()
+        return CollectionModel.of(
+                userEntities,
+                linkTo(methodOn(UserRestController.class).findAll()).withSelfRel(),
+                linkTo(methodOn(CategoryRestController.class).findAll()).withRel("categories")
         );
     }
 

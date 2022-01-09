@@ -1,6 +1,8 @@
 package com.orbanszlrd.quizapi.modules.category.service;
 
+import com.orbanszlrd.quizapi.modules.category.error.CategoryNotFoundException;
 import com.orbanszlrd.quizapi.modules.category.model.Category;
+import com.orbanszlrd.quizapi.modules.category.model.dto.CategoryRequest;
 import com.orbanszlrd.quizapi.modules.category.model.dto.CategoryResponse;
 import com.orbanszlrd.quizapi.modules.category.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
@@ -28,15 +30,17 @@ public class CategoryService {
     }
 
     public CategoryResponse findById(Long id) {
-        Category category = categoryRepository.findById(id).orElseThrow(RuntimeException::new);
+        Category category = categoryRepository.findById(id).orElseThrow(() -> new CategoryNotFoundException(id));
         return modelMapper.map(category, CategoryResponse.class);
     }
 
-    public CategoryResponse add(Category category) {
+    public CategoryResponse add(CategoryRequest categoryRequest) {
+        Category category = modelMapper.map(categoryRequest, Category.class);
         return modelMapper.map(categoryRepository.save(category), CategoryResponse.class);
     }
 
-    public CategoryResponse update(Long id, Category category) {
+    public CategoryResponse update(Long id, CategoryRequest categoryRequest) {
+        Category category = modelMapper.map(categoryRequest, Category.class);
         category.setId(id);
         return modelMapper.map(categoryRepository.save(category), CategoryResponse.class);
     }

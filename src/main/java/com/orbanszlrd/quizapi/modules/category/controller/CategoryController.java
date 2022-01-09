@@ -1,6 +1,7 @@
 package com.orbanszlrd.quizapi.modules.category.controller;
 
 import com.orbanszlrd.quizapi.modules.category.model.Category;
+import com.orbanszlrd.quizapi.modules.category.model.dto.CategoryRequest;
 import com.orbanszlrd.quizapi.modules.category.model.dto.CategoryResponse;
 import com.orbanszlrd.quizapi.modules.category.service.CategoryService;
 import lombok.RequiredArgsConstructor;
@@ -36,14 +37,6 @@ public class CategoryController {
         return "category/edit-category";
     }
 
-    @PostMapping("")
-    public String add(@RequestParam("name") String name) {
-        Category category = new Category(name);
-        categoryService.add(category);
-
-        return "redirect:/categories";
-    }
-
     @GetMapping("/{id}")
     public String edit(@PathVariable Long id, Model model) {
         CategoryResponse category = categoryService.findById(id);
@@ -55,9 +48,18 @@ public class CategoryController {
         return "edit-category";
     }
 
+    @PostMapping("")
+    public String add(@RequestParam("name") String name) {
+        CategoryRequest categoryRequest = new CategoryRequest(name);
+        categoryService.add(categoryRequest);
+
+        return "redirect:/categories";
+    }
+
     @PutMapping("/{id}")
     public String update(@PathVariable Long id, @RequestParam("name") String name) {
-        categoryService.update(id, new Category(name));
+        CategoryRequest categoryRequest = new CategoryRequest(name);
+        categoryService.update(id, categoryRequest);
 
         return "redirect:/categories";
     }
