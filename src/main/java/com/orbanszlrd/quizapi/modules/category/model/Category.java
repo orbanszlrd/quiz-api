@@ -1,4 +1,4 @@
-package com.orbanszlrd.quizapi.modules.category;
+package com.orbanszlrd.quizapi.modules.category.model;
 
 import com.orbanszlrd.quizapi.modules.quiz.Quiz;
 import lombok.AllArgsConstructor;

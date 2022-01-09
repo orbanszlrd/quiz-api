@@ -1,5 +1,6 @@
-package com.orbanszlrd.quizapi.modules.category;
+package com.orbanszlrd.quizapi.modules.category.repository;
 
+import com.orbanszlrd.quizapi.modules.category.model.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

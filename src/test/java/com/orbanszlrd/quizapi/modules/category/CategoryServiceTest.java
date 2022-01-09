@@ -1,5 +1,8 @@
 package com.orbanszlrd.quizapi.modules.category;
 
+import com.orbanszlrd.quizapi.modules.category.model.Category;
+import com.orbanszlrd.quizapi.modules.category.repository.CategoryRepository;
+import com.orbanszlrd.quizapi.modules.category.service.CategoryService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,16 +11,17 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.modelmapper.ModelMapper;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class CategoryServiceTest {
     private final CategoryRepository categoryRepository = Mockito.mock(CategoryRepository.class);
-    private final CategoryService categoryService = new CategoryService(categoryRepository);
+    private final ModelMapper modelMapper = new ModelMapper();
+    private final CategoryService categoryService = new CategoryService(categoryRepository, modelMapper);
 
     private final List<Category> categories = List.of(
             new Category(1L, "Astronomy"),
