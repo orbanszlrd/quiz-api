@@ -1,4 +1,4 @@
-package com.orbanszlrd.quizapi.modules.user;
+package com.orbanszlrd.quizapi.modules.user.service;
 
 import com.orbanszlrd.quizapi.modules.user.model.Role;
 import com.orbanszlrd.quizapi.modules.user.model.dto.InsertUserRequest;

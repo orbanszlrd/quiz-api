@@ -1,4 +1,4 @@
-package com.orbanszlrd.quizapi.modules.category;
+package com.orbanszlrd.quizapi.modules.category.service;
 
 import com.orbanszlrd.quizapi.modules.category.model.Category;
 import com.orbanszlrd.quizapi.modules.category.repository.CategoryRepository;

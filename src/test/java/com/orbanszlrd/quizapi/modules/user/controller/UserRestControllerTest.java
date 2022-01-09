@@ -1,4 +1,4 @@
-package com.orbanszlrd.quizapi.modules.user;
+package com.orbanszlrd.quizapi.modules.user.controller;
 
 import com.orbanszlrd.quizapi.modules.user.model.Role;
 import com.orbanszlrd.quizapi.modules.user.model.dto.InsertUserRequest;
@@ -19,6 +19,7 @@ import org.springframework.http.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -55,6 +56,7 @@ class UserRestControllerTest {
         final ResponseEntity<CollectionModel> response = testRestTemplate.withBasicAuth("admin", "admin").getForEntity(baseUrl, CollectionModel.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         final CollectionModel<EntityModel<UserResponse>> collectionModel = response.getBody();
+        assertThat(collectionModel).isNotNull();
         assertEquals(getEntityCount(), collectionModel.getContent().size());
     }
 
@@ -92,8 +94,8 @@ class UserRestControllerTest {
         final HttpEntity<UpdateUserRequest> httpEntity = new HttpEntity<>(updateUserRequest, headers);
 
         final EntityModel entityModel = testRestTemplate.withBasicAuth("admin", "admin").exchange(baseUrl + "/" + glenn.getId(), HttpMethod.PUT, httpEntity, EntityModel.class).getBody();
+        assertThat(entityModel).isNotNull();
         UserResponse userResponse = modelMapper.map(entityModel.getContent(), UserResponse.class);
-
         assertEquals(updateUserRequest.getEnabled(), userResponse.isEnabled());
         assertEquals(updateUserRequest.getRole(), userResponse.getRole());
     }

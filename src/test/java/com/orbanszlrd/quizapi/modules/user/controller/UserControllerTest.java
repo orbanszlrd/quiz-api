@@ -1,4 +1,4 @@
-package com.orbanszlrd.quizapi.modules.user;
+package com.orbanszlrd.quizapi.modules.user.controller;
 
 import com.auth0.jwt.algorithms.Algorithm;
 import com.orbanszlrd.quizapi.modules.user.controller.UserController;
