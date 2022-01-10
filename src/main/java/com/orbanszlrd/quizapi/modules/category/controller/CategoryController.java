@@ -45,7 +45,7 @@ public class CategoryController {
         model.addAttribute("method", "PUT");
         model.addAttribute("action", "/categories/" + id);
 
-        return "edit-category";
+        return "category/edit-category";
     }
 
     @PostMapping("")

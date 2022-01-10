@@ -21,7 +21,7 @@
             <td style="vertical-align: middle;" th:text="${category.getId()}"></td>
             <td style="vertical-align: middle;" th:text="${category.getName()}"></td>
             <td>
-                <form class="form-inline" action="#" th:action="@{/categories/{id}/edit(id=${category.getId()})}"
+                <form class="form-inline" action="#" th:action="@{/categories/{id}(id=${category.getId()})}"
                       th:method="GET">
                     <button type="submit" class="btn btn-link text-dark" title="Edit Category"><i
                             class="fas fa-edit"></i>

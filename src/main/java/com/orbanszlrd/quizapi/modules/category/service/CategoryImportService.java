@@ -15,14 +15,14 @@ public class CategoryImportService {
     private final CategoryRepository categoryRepository;
 
     @Bean
-    public CommandLineRunner importData() {
+    public CommandLineRunner categoryImporter() {
         return args -> {
             List<Category> categories = List.of(
-                    new Category(1L, "Nature"),
-                    new Category(2L, "Programming"),
-                    new Category(3L, "Sport"),
-                    new Category(4L, "Politics"),
-                    new Category(5L, "Business")
+                    new Category("Nature"),
+                    new Category("Programming"),
+                    new Category("Sport"),
+                    new Category("Politics"),
+                    new Category("Business")
             );
 
             categoryRepository.saveAll(categories);

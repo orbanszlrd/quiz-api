@@ -1,5 +1,6 @@
 package com.orbanszlrd.quizapi.modules.category.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.orbanszlrd.quizapi.modules.quiz.model.Quiz;
 import lombok.Data;
 import lombok.NoArgsConstructor;

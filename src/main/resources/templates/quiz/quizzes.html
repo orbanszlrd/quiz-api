@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Quiz API: Quizzes</title>
+    <header th:insert="fragments/general.html :: head"></header>
+</head>
+<body>
+<header th:insert="fragments/general.html :: navigation"></header>
+
+<h3 class="text-center p-2"><span th:text="${quizzes.size()}"></span> Quizzes</h3>
+
+<div class="container-fluid">
+    <table th:if="${quizzes.size() > 0}" class="table">
+        <tr>
+            <th scope="col" style="width:10%">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Time Limit</th>
+            <th scope="col">Category</th>
+            <th scope="col" style="width:10%">Edit</th>
+            <th scope="col" style="width:10%">Delete</th>
+        </tr>
+        <tr th:each="quiz: ${quizzes}">
+            <td style="vertical-align: middle;" th:text="${quiz.getId()}"></td>
+            <td style="vertical-align: middle;" th:text="${quiz.getName()}"></td>
+            <td style="vertical-align: middle;" th:text="${quiz.getTimeLimit()}"></td>
+            <td style="vertical-align: middle;" th:text="${quiz.getCategoryName()}"></td>
+            <td>
+                <form class="form-inline" action="#" th:action="@{/quizzes/{id}(id=${quiz.getId()})}"
+                      th:method="GET">
+                    <button type="submit" class="btn btn-link text-dark" title="Edit Quiz"><i
+                            class="fas fa-edit"></i>
+                    </button>
+                </form>
+            </td>
+            <td>
+                <form class="form-inline" action="#" th:action="@{/quizzes/{id}(id=${quiz.getId()})}"
+                      th:method="DELETE">
+                    <button type="submit" class="btn btn-link text-danger" title="Delete Quiz"><i
+                            class="fas fa-trash"></i></button>
+                </form>
+            </td>
+        </tr>
+    </table>
+    <div>
+        <form method="get" action="/quizzes/create">
+            <button class="btn btn-success" type="submit">Create quiz</button>
+        </form>
+    </div>
+</div>
+</div>
+
+</body>
+</html>

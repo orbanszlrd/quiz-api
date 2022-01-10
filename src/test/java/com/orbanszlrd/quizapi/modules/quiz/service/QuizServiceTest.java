@@ -1,6 +1,7 @@
-package com.orbanszlrd.quizapi.modules.quiz;
+package com.orbanszlrd.quizapi.modules.quiz.service;
 
 import com.orbanszlrd.quizapi.modules.category.model.Category;
+import com.orbanszlrd.quizapi.modules.category.repository.CategoryRepository;
 import com.orbanszlrd.quizapi.modules.quiz.model.Quiz;
 import com.orbanszlrd.quizapi.modules.quiz.repository.QuizRepository;
 import com.orbanszlrd.quizapi.modules.quiz.service.QuizService;
@@ -12,6 +13,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.modelmapper.ModelMapper;
 
 import java.util.List;
 
@@ -20,7 +22,9 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class QuizServiceTest {
     private final QuizRepository quizRepository = Mockito.mock(QuizRepository.class);
-    private final QuizService quizService = new QuizService(quizRepository);
+    private final CategoryRepository categoryRepository =  Mockito.mock(CategoryRepository.class);
+    private final ModelMapper modelMapper = Mockito.mock(ModelMapper.class);
+    private final QuizService quizService = new QuizService(quizRepository, categoryRepository, modelMapper);
 
     private final Category category = new Category("IT");
 

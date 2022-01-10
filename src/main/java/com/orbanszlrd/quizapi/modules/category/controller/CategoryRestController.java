@@ -4,6 +4,7 @@ import com.orbanszlrd.quizapi.modules.category.model.dto.CategoryRequest;
 import com.orbanszlrd.quizapi.modules.category.model.dto.CategoryResponse;
 import com.orbanszlrd.quizapi.modules.category.service.CategoryService;
 import com.orbanszlrd.quizapi.modules.category.util.CategoryModelAssembler;
+import com.orbanszlrd.quizapi.modules.quiz.controller.QuizRestController;
 import com.orbanszlrd.quizapi.modules.user.controller.UserRestController;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -37,7 +38,8 @@ public class CategoryRestController {
         return CollectionModel.of(
                 categoryEntities,
                 linkTo(methodOn(CategoryRestController.class).findAll()).withSelfRel(),
-                linkTo(methodOn(UserRestController.class).findAll()).withRel("users")
+                linkTo(methodOn(UserRestController.class).findAll()).withRel("users"),
+                linkTo(methodOn(QuizRestController.class).findAll()).withRel("quizzes")
         );
     }
 

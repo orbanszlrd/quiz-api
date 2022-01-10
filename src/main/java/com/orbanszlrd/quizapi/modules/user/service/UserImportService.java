@@ -16,7 +16,7 @@ public class UserImportService {
     private final PasswordEncoder passwordEncoder;
 
     @Bean
-    public CommandLineRunner insertUsers() {
+    public CommandLineRunner userImporter() {
         return args -> {
             userRepository.save(new User(1L, "owner", "owner@email.com", passwordEncoder.encode("owner"), true, Role.OWNER));
             userRepository.save(new User(2L, "admin", "admin@email.com", passwordEncoder.encode("admin"), true, Role.ADMIN));
