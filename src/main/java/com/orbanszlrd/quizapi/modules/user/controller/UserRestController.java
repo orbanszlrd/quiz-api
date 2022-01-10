@@ -1,5 +1,6 @@
 package com.orbanszlrd.quizapi.modules.user.controller;
 
+import com.orbanszlrd.quizapi.modules.answer.controller.AnswerRestController;
 import com.orbanszlrd.quizapi.modules.category.controller.CategoryRestController;
 import com.orbanszlrd.quizapi.modules.question.controller.QuestionRestController;
 import com.orbanszlrd.quizapi.modules.quiz.controller.QuizRestController;
@@ -44,7 +45,7 @@ public class UserRestController {
                 linkTo(methodOn(CategoryRestController.class).findAll()).withRel("categories"),
                 linkTo(methodOn(QuizRestController.class).findAll()).withRel("quizzes"),
                 linkTo(methodOn(QuestionRestController.class).findAll()).withRel("questions"),
-                linkTo(methodOn(QuizRestController.class).findAll()).withRel("answers")
+                linkTo(methodOn(AnswerRestController.class).findAll()).withRel("answers")
         );
     }
 

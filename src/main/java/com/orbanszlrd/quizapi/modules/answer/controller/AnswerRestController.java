@@ -5,6 +5,7 @@ import com.orbanszlrd.quizapi.modules.answer.model.dto.AnswerRequest;
 import com.orbanszlrd.quizapi.modules.answer.model.dto.AnswerResponse;
 import com.orbanszlrd.quizapi.modules.answer.service.AnswerService;
 import com.orbanszlrd.quizapi.modules.answer.util.AnswerModelAssembler;
+import com.orbanszlrd.quizapi.modules.question.controller.QuestionRestController;
 import com.orbanszlrd.quizapi.modules.quiz.controller.QuizRestController;
 import com.orbanszlrd.quizapi.modules.user.controller.UserRestController;
 import io.swagger.v3.oas.annotations.Operation;
@@ -42,7 +43,7 @@ public class AnswerRestController {
                 linkTo(methodOn(UserRestController.class).findAll()).withRel("users"),
                 linkTo(methodOn(CategoryRestController.class).findAll()).withRel("categories"),
                 linkTo(methodOn(QuizRestController.class).findAll()).withRel("quizzes"),
-                linkTo(methodOn(QuizRestController.class).findAll()).withRel("questions")
+                linkTo(methodOn(QuestionRestController.class).findAll()).withRel("questions")
         );
     }
 
