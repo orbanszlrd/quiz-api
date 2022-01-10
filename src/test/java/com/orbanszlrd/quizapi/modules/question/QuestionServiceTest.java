@@ -1,7 +1,11 @@
 package com.orbanszlrd.quizapi.modules.question;
 
 import com.orbanszlrd.quizapi.modules.category.model.Category;
+import com.orbanszlrd.quizapi.modules.question.model.Question;
+import com.orbanszlrd.quizapi.modules.question.repository.QuestionRepository;
+import com.orbanszlrd.quizapi.modules.question.service.QuestionService;
 import com.orbanszlrd.quizapi.modules.quiz.model.Quiz;
+import com.orbanszlrd.quizapi.modules.quiz.repository.QuizRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,6 +14,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.modelmapper.ModelMapper;
 
 import java.util.List;
 
@@ -18,7 +23,9 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class QuestionServiceTest {
     private final QuestionRepository questionRepository = Mockito.mock(QuestionRepository.class);
-    private final QuestionService questionService = new QuestionService(questionRepository);
+    private final QuizRepository quizRepository = Mockito.mock(QuizRepository.class);
+    private final ModelMapper modelMapper = Mockito.mock(ModelMapper.class);
+    private final QuestionService questionService = new QuestionService(questionRepository, quizRepository, modelMapper);
 
     private final Quiz quiz = new Quiz(1L, "Java Spring", 40, new Category(1L, "IT"));
 

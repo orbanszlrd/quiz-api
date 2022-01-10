@@ -35,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/h2-console/**").hasRole("OWNER")
                 .antMatchers("/swagger-ui/**").hasRole("OWNER")
-                .antMatchers("/api-docs").hasRole("OWNER")
+                .antMatchers("/api-docs").permitAll()
                 .antMatchers(HttpMethod.GET, "/users/**").authenticated()
                 .antMatchers("/users/**").hasAnyRole("OWNER", "ADMIN")
                 .antMatchers(HttpMethod.GET, "/api/v1/**").authenticated()

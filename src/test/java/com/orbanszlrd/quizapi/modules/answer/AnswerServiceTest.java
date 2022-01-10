@@ -1,6 +1,6 @@
 package com.orbanszlrd.quizapi.modules.answer;
 
-import com.orbanszlrd.quizapi.modules.question.Question;
+import com.orbanszlrd.quizapi.modules.question.model.Question;
 import com.orbanszlrd.quizapi.modules.quiz.model.Quiz;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

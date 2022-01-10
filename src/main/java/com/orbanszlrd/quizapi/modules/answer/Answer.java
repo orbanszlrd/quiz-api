@@ -1,7 +1,6 @@
 package com.orbanszlrd.quizapi.modules.answer;
 
-import com.orbanszlrd.quizapi.modules.question.Question;
-import lombok.AllArgsConstructor;
+import com.orbanszlrd.quizapi.modules.question.model.Question;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;

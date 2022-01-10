@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Question API: Edit Question</title>
+    <header th:insert="fragments/general.html :: head"></header>
+</head>
+<body>
+<header th:insert="fragments/general.html :: navigation"></header>
+
+<h3 class="text-center p-2">Edit Question</h3>
+
+<div class="container-fluid">
+    <form action="#" th:action="${action}" th:method="${method}">
+        <div class="form-floating p-1">
+            <input class="form-control" type="text" placeholder="Text" id="text" name="text"
+                   th:value="${question.getText()}" required>
+            <label for="text">Text</label>
+        </div>
+
+        <div class="form-floating p-1">
+            <input class="form-control" type="text" placeholder="Time Limit" id="timeLimit" name="timeLimit"
+                   th:value="${question.getTimeLimit()}" required>
+            <label for="timeLimit">Time Limit</label>
+        </div>
+
+        <div class="form-floating p-1">
+            <input class="form-control" type="text" placeholder="Value" id="value" name="value"
+                   th:value="${question.getValue()}" required>
+            <label for="value">Value</label>
+        </div>
+
+        <div class="form-floating p-1">
+            <select class="form-control"  id="quizId" name="quizId">
+                <option th:each="quiz: ${quizzes}" th:value="${quiz.getId()}" th:text="${quiz.getName()}"
+                        th:selected="${quiz.getId() == question.getQuizId()}"></option>
+            </select>
+            <label for="quizId">Quiz</label>
+        </div>
+
+        <div class="form-group p-1">
+            <button type="submit" class="btn btn-success">Save</button>
+            <a class="btn btn-secondary" href="/questions">All Questions</a>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

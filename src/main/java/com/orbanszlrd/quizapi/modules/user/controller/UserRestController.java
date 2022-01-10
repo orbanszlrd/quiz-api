@@ -1,6 +1,7 @@
 package com.orbanszlrd.quizapi.modules.user.controller;
 
 import com.orbanszlrd.quizapi.modules.category.controller.CategoryRestController;
+import com.orbanszlrd.quizapi.modules.question.controller.QuestionRestController;
 import com.orbanszlrd.quizapi.modules.quiz.controller.QuizRestController;
 import com.orbanszlrd.quizapi.modules.user.util.UserModelAssembler;
 import com.orbanszlrd.quizapi.modules.user.model.dto.InsertUserRequest;
@@ -41,7 +42,8 @@ public class UserRestController {
                 userEntities,
                 linkTo(methodOn(UserRestController.class).findAll()).withSelfRel(),
                 linkTo(methodOn(CategoryRestController.class).findAll()).withRel("categories"),
-                linkTo(methodOn(QuizRestController.class).findAll()).withRel("quizzes")
+                linkTo(methodOn(QuizRestController.class).findAll()).withRel("quizzes"),
+                linkTo(methodOn(QuestionRestController.class).findAll()).withRel("questions")
         );
     }
 

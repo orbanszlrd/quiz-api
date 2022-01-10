@@ -35,6 +35,7 @@ class CategoryRestControllerTest {
 
     @AfterEach
     void tearDown() {
+        jdbcTemplate.update("delete from question");
         jdbcTemplate.update("delete from quiz");
         jdbcTemplate.update("delete from category");
     }

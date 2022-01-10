@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Question API: Questions</title>
+    <header th:insert="fragments/general.html :: head"></header>
+</head>
+<body>
+<header th:insert="fragments/general.html :: navigation"></header>
+
+<h3 class="text-center p-2"><span th:text="${questions.size()}"></span> Questions</h3>
+
+<div class="container-fluid">
+    <table th:if="${questions.size() > 0}" class="table">
+        <tr>
+            <th scope="col" style="width:10%">Id</th>
+            <th scope="col">Text</th>
+            <th scope="col">Time Limit</th>
+            <th scope="col">Value</th>
+            <th scope="col">Quiz</th>
+            <th scope="col" style="width:10%">Edit</th>
+            <th scope="col" style="width:10%">Delete</th>
+        </tr>
+        <tr th:each="question: ${questions}">
+            <td style="vertical-align: middle;" th:text="${question.getId()}"></td>
+            <td style="vertical-align: middle;" th:text="${question.getText()}"></td>
+            <td style="vertical-align: middle;" th:text="${question.getTimeLimit()}"></td>
+            <td style="vertical-align: middle;" th:text="${question.getValue()}"></td>
+            <td style="vertical-align: middle;" th:text="${question.getQuizName()}"></td>
+            <td>
+                <form class="form-inline" action="#" th:action="@{/questions/{id}(id=${question.getId()})}"
+                      th:method="GET">
+                    <button type="submit" class="btn btn-link text-dark" title="Edit Question"><i
+                            class="fas fa-edit"></i>
+                    </button>
+                </form>
+            </td>
+            <td>
+                <form class="form-inline" action="#" th:action="@{/questions/{id}(id=${question.getId()})}"
+                      th:method="DELETE">
+                    <button type="submit" class="btn btn-link text-danger" title="Delete Question"><i
+                            class="fas fa-trash"></i></button>
+                </form>
+            </td>
+        </tr>
+    </table>
+    <div>
+        <form method="get" action="/questions/create">
+            <button class="btn btn-success" type="submit">Create question</button>
+        </form>
+    </div>
+</div>
+</div>
+
+</body>
+</html>

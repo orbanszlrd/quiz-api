@@ -35,6 +35,7 @@ public class QuizController {
         List<CategoryResponse> categories = categoryService.findAll();
 
         model.addAttribute("quiz", quiz);
+        model.addAttribute("categories", categories);
         model.addAttribute("action", "/quizzes");
         model.addAttribute("method", "POST");
 
