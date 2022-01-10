@@ -41,7 +41,8 @@ public class CategoryRestController {
                 linkTo(methodOn(CategoryRestController.class).findAll()).withSelfRel(),
                 linkTo(methodOn(UserRestController.class).findAll()).withRel("users"),
                 linkTo(methodOn(QuizRestController.class).findAll()).withRel("quizzes"),
-                linkTo(methodOn(QuestionRestController.class).findAll()).withRel("questions")
+                linkTo(methodOn(QuestionRestController.class).findAll()).withRel("questions"),
+                linkTo(methodOn(QuizRestController.class).findAll()).withRel("answers")
         );
     }
 

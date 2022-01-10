@@ -16,7 +16,7 @@ public class QuestionModelAssembler implements RepresentationModelAssembler<Ques
         return EntityModel.of(
                 questionResponse,
                 linkTo(methodOn(QuestionRestController.class).findById(questionResponse.getId())).withSelfRel(),
-                linkTo(methodOn(QuestionRestController.class).findAll()).withRel("categories")
+                linkTo(methodOn(QuestionRestController.class).findAll()).withRel("questions")
         );
     }
 }

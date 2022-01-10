@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Question API: Edit Question</title>
+    <header th:insert="fragments/general.html :: head"></header>
+</head>
+<body>
+<header th:insert="fragments/general.html :: navigation"></header>
+
+<h3 class="text-center p-2">Edit Question</h3>
+
+<div class="container-fluid">
+    <form action="#" th:action="${action}" th:method="${method}">
+        <div class="form-floating p-1">
+            <input class="form-control" type="text" placeholder="Text" id="text" name="text"
+                   th:value="${answer.getText()}" required>
+            <label for="text">Text</label>
+        </div>
+
+        <div class="form-floating p-1">
+            <select class="form-control"  id="questionId" name="questionId">
+                <option th:each="question: ${questions}" th:value="${question.getId()}" th:text="${question.getText()}"
+                        th:selected="${question.getId() == answer.getQuestionId()}"></option>
+            </select>
+            <label for="questionId">Question</label>
+        </div>
+
+        <div class="form-group p-1">
+            <input class="form-check-input" type="checkbox" id="correct" name="correct"
+                   th:checked="${answer.isCorrect()}">
+            <label for="correct">Correct</label>
+        </div>
+
+        <div class="form-group p-1">
+            <button type="submit" class="btn btn-success">Save</button>
+            <a class="btn btn-secondary" href="/answers">All Answers</a>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

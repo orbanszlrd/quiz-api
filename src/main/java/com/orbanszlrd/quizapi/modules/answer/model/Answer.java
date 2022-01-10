@@ -1,4 +1,4 @@
-package com.orbanszlrd.quizapi.modules.answer;
+package com.orbanszlrd.quizapi.modules.answer.model;
 
 import com.orbanszlrd.quizapi.modules.question.model.Question;
 import lombok.Data;

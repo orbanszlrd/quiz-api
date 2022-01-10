@@ -1,6 +1,6 @@
 package com.orbanszlrd.quizapi.modules.question.model;
 
-import com.orbanszlrd.quizapi.modules.answer.Answer;
+import com.orbanszlrd.quizapi.modules.answer.model.Answer;
 import com.orbanszlrd.quizapi.modules.quiz.model.Quiz;
 import lombok.Data;
 import lombok.NoArgsConstructor;

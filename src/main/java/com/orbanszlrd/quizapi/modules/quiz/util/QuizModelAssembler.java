@@ -16,7 +16,7 @@ public class QuizModelAssembler implements RepresentationModelAssembler<QuizResp
         return EntityModel.of(
                 quizResponse,
                 linkTo(methodOn(QuizRestController.class).findById(quizResponse.getId())).withSelfRel(),
-                linkTo(methodOn(QuizRestController.class).findAll()).withRel("categories")
+                linkTo(methodOn(QuizRestController.class).findAll()).withRel("quizzes")
         );
     }
 }

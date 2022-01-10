@@ -1,5 +1,6 @@
-package com.orbanszlrd.quizapi.modules.answer;
+package com.orbanszlrd.quizapi.modules.answer.repository;
 
+import com.orbanszlrd.quizapi.modules.answer.model.Answer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

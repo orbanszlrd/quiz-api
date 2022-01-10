@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Answer API: Answers</title>
+    <header th:insert="fragments/general.html :: head"></header>
+</head>
+<body>
+<header th:insert="fragments/general.html :: navigation"></header>
+
+<h3 class="text-center p-2"><span th:text="${answers.size()}"></span> Answers</h3>
+
+<div class="container-fluid">
+    <table th:if="${answers.size() > 0}" class="table">
+        <tr>
+            <th scope="col" style="width:10%">Id</th>
+            <th scope="col">Text</th>
+            <th scope="col">Correct</th>
+            <th scope="col">Question</th>
+            <th scope="col" style="width:10%">Edit</th>
+            <th scope="col" style="width:10%">Delete</th>
+        </tr>
+        <tr th:each="answer: ${answers}">
+            <td style="vertical-align: middle;" th:text="${answer.getId()}"></td>
+            <td style="vertical-align: middle;" th:text="${answer.getText()}"></td>
+            <td style="vertical-align: middle;" th:text="${answer.isCorrect()}"></td>
+            <td style="vertical-align: middle;" th:text="${answer.getQuestionText()}"></td>
+            <td>
+                <form class="form-inline" action="#" th:action="@{/answers/{id}(id=${answer.getId()})}"
+                      th:method="GET">
+                    <button type="submit" class="btn btn-link text-dark" title="Edit Answer"><i
+                            class="fas fa-edit"></i>
+                    </button>
+                </form>
+            </td>
+            <td>
+                <form class="form-inline" action="#" th:action="@{/answers/{id}(id=${answer.getId()})}"
+                      th:method="DELETE">
+                    <button type="submit" class="btn btn-link text-danger" title="Delete Answer"><i
+                            class="fas fa-trash"></i></button>
+                </form>
+            </td>
+        </tr>
+    </table>
+    <div>
+        <form method="get" action="/answers/create">
+            <button class="btn btn-success" type="submit">Create answer</button>
+        </form>
+    </div>
+</div>
+</div>
+
+</body>
+</html>

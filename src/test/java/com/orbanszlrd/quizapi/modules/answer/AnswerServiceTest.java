@@ -1,6 +1,10 @@
 package com.orbanszlrd.quizapi.modules.answer;
 
+import com.orbanszlrd.quizapi.modules.answer.model.Answer;
+import com.orbanszlrd.quizapi.modules.answer.repository.AnswerRepository;
+import com.orbanszlrd.quizapi.modules.answer.service.AnswerService;
 import com.orbanszlrd.quizapi.modules.question.model.Question;
+import com.orbanszlrd.quizapi.modules.question.repository.QuestionRepository;
 import com.orbanszlrd.quizapi.modules.quiz.model.Quiz;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,15 +14,19 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.modelmapper.ModelMapper;
 
 import java.util.List;
 
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class AnswerServiceTest {
     private final AnswerRepository answerRepository = Mockito.mock(AnswerRepository.class);
-    private final AnswerService answerService = new AnswerService(answerRepository);
+    private final QuestionRepository  questionRepository = Mockito.mock(QuestionRepository.class);
+    private final ModelMapper modelMapper = mock(ModelMapper.class);
+    private final AnswerService answerService = new AnswerService(answerRepository, questionRepository, modelMapper);
 
     private final Question question = new Question(1L, "Question 1", 2, (byte) 10, new Quiz());
     private final List<Answer> answers = List.of(
