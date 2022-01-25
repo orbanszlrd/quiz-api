@@ -45,13 +45,6 @@ public class QuizController {
         return "quiz/edit-quiz";
     }
 
-    @GetMapping("/{id}/questions")
-    public String questions(@PathVariable Long id, Model model) {
-        List<QuestionResponse> questions = questionService.findByQuizId(id);
-        model.addAttribute("questions", questions);
-        return "question/questions";
-    }
-
     @GetMapping("/{id}")
     public String edit(@PathVariable Long id, Model model) {
         QuizResponse quiz = quizService.findById(id);

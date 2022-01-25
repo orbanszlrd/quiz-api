@@ -34,12 +34,12 @@
                 </a>
             </td>
             <td>
-                <a th:href="@{/questions/{id}(id=${question.getId()})}" type="submit" class="btn btn-link text-dark" title="Edit Question"><i
+                <a th:href="@{__${#httpServletRequest.requestURI}__/{id}(id=${question.getId()})}" type="submit" class="btn btn-link text-dark" title="Edit Question"><i
                         class="fas fa-edit"></i>
                 </a>
             </td>
             <td>
-                <form class="form-inline" action="#" th:action="@{/questions/{id}(id=${question.getId()})}"
+                <form class="form-inline" action="#" th:action="@{__${#httpServletRequest.requestURI}__/{id}(id=${question.getId()})}"
                       th:method="DELETE">
                     <button type="submit" class="btn btn-link text-danger" title="Delete Question"><i
                             class="fas fa-trash"></i></button>

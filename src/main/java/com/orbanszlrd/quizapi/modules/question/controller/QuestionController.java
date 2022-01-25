@@ -1,7 +1,5 @@
 package com.orbanszlrd.quizapi.modules.question.controller;
 
-import com.orbanszlrd.quizapi.modules.answer.model.dto.AnswerResponse;
-import com.orbanszlrd.quizapi.modules.answer.service.AnswerService;
 import com.orbanszlrd.quizapi.modules.question.model.dto.QuestionRequest;
 import com.orbanszlrd.quizapi.modules.question.model.dto.QuestionResponse;
 import com.orbanszlrd.quizapi.modules.question.service.QuestionService;
@@ -16,74 +14,90 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/questions")
+@RequestMapping("")
 @RequiredArgsConstructor
 public class QuestionController {
     private final QuestionService questionService;
     private final QuizService quizService;
-    private final AnswerService answerService;
 
-    @GetMapping("")
+    @GetMapping("/questions")
     public String findAll(Model model) {
         List<QuestionResponse> questions = questionService.findAll();
         model.addAttribute("questions", questions);
         return "question/questions";
     }
 
-    @GetMapping("/create")
-    public String create(Model model) {
+    @GetMapping("/quizzes/{parentId}/questions")
+    public String questions(@PathVariable Long parentId, Model model) {
+        List<QuestionResponse> questions = questionService.findByQuizId(parentId);
+        model.addAttribute("questions", questions);
+        return "question/questions";
+    }
+
+    @GetMapping(value = {"/questions/create", "/quizzes/{parentId}/questions/create"})
+    public String create(@PathVariable(required = false) Long parentId, Model model) {
         String randomText = RandomStringUtils.randomAlphanumeric(10);
-        QuestionRequest question = new QuestionRequest(randomText, 30, (byte) 5, 1L);
+        QuestionRequest question = new QuestionRequest(randomText, 30, (byte) 5, parentId);
         List<QuizResponse> quizzes = quizService.findAll();
+
+        String action = (parentId == null) ? "/questions" : "/quizzes/" + parentId + "/questions";
 
         model.addAttribute("question", question);
         model.addAttribute("quizzes", quizzes);
-        model.addAttribute("action", "/questions");
+        model.addAttribute("action", action);
         model.addAttribute("method", "POST");
 
         return "question/edit-question";
     }
 
-    @GetMapping("/{id}/answers")
-    public String answers(@PathVariable Long id, Model model) {
-        List<AnswerResponse> answers = answerService.findByQuestionId(id);
-        model.addAttribute("answers", answers);
-        return "answer/answers";
-    }
-
-    @GetMapping("/{id}")
-    public String edit(@PathVariable Long id, Model model) {
+    @GetMapping(value = {"/questions/{id}", "/quizzes/{parentId}/questions/{id}"})
+    public String edit(@PathVariable Long id, @PathVariable(required = false) Long parentId, Model model) {
         QuestionResponse question = questionService.findById(id);
         List<QuizResponse> quizzes = quizService.findAll();
+
+        String action = parentId == null ? "/questions/" + id : "/quizzes/" + parentId + "/questions/" + id;
 
         model.addAttribute("question", question);
         model.addAttribute("quizzes", quizzes);
         model.addAttribute("method", "PUT");
-        model.addAttribute("action", "/questions/" + id);
+        model.addAttribute("action", action);
 
         return "question/edit-question";
     }
 
-    @PostMapping("")
-    public String add(@RequestParam("text") String text, @RequestParam("timeLimit") Integer timeLimit, @RequestParam("value") Byte value, @RequestParam("quizId") Long quizId) {
+    @PostMapping(value = {"/questions", "/quizzes/{parentId}/questions"})
+    public String add(
+            @PathVariable(required = false) Long parentId,
+            @RequestParam("text") String text,
+            @RequestParam("timeLimit") Integer timeLimit,
+            @RequestParam("value") Byte value,
+            @RequestParam("quizId") Long quizId
+    ) {
         QuestionRequest questionRequest = new QuestionRequest(text, timeLimit, value, quizId);
         questionService.add(questionRequest);
 
-        return "redirect:/questions";
+        return "redirect:" + (parentId == null ? "/questions" : "/quizzes/" + parentId + "/questions");
     }
 
-    @PutMapping("/{id}")
-    public String update(@PathVariable Long id, @RequestParam("text") String text, @RequestParam("timeLimit") Integer timeLimit, @RequestParam("value") Byte value, @RequestParam("quizId") Long quizId) {
+    @PutMapping(value = {"/questions/{id}", "/quizzes/{parentId}/questions/{id}"})
+    public String update(
+            @PathVariable Long id,
+            @PathVariable(required = false) Long parentId,
+            @RequestParam("text") String text,
+            @RequestParam("timeLimit") Integer timeLimit,
+            @RequestParam("value") Byte value,
+            @RequestParam("quizId") Long quizId
+    ) {
         QuestionRequest questionRequest = new QuestionRequest(text, timeLimit, value, quizId);
         questionService.update(id, questionRequest);
 
-        return "redirect:/questions";
+        return "redirect:" + (parentId == null ? "/questions" : "/quizzes/" + parentId + "/questions");
     }
 
-    @DeleteMapping("/{id}")
-    public String deleteById(@PathVariable Long id) {
+    @DeleteMapping(value = {"/questions/{id}", "/quizzes/{parentId}/questions/{id}"})
+    public String deleteById(@PathVariable Long id, @PathVariable(required = false) Long parentId) {
         questionService.deleteById(id);
 
-        return "redirect:/questions";
+        return "redirect:" + (parentId == null ? "/questions" : "/quizzes/" + parentId + "/questions");
     }
 }
