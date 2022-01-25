@@ -5,6 +5,7 @@ import com.orbanszlrd.quizapi.modules.category.model.dto.CategoryRequest;
 import com.orbanszlrd.quizapi.modules.category.model.dto.CategoryResponse;
 import com.orbanszlrd.quizapi.modules.category.service.CategoryService;
 import com.orbanszlrd.quizapi.modules.quiz.model.Quiz;
+import com.orbanszlrd.quizapi.modules.quiz.model.dto.QuizRequest;
 import com.orbanszlrd.quizapi.modules.quiz.model.dto.QuizResponse;
 import com.orbanszlrd.quizapi.modules.quiz.service.QuizService;
 import lombok.RequiredArgsConstructor;
@@ -42,13 +43,6 @@ public class CategoryController {
         return "category/edit-category";
     }
 
-    @GetMapping("/{id}/quizzes")
-    public String quizzes(@PathVariable Long id, Model model) {
-        List<QuizResponse> quizzes = quizService.findByCategoryId(id);
-        model.addAttribute("quizzes", quizzes);
-        return "quiz/quizzes";
-    }
-
     @GetMapping("/{id}")
     public String edit(@PathVariable Long id, Model model) {
         CategoryResponse category = categoryService.findById(id);
@@ -81,5 +75,63 @@ public class CategoryController {
         categoryService.deleteById(id);
 
         return "redirect:/categories";
+    }
+
+    @GetMapping("/{id}/quizzes")
+    public String quizzes(@PathVariable Long id, Model model) {
+        List<QuizResponse> quizzes = quizService.findByCategoryId(id);
+        model.addAttribute("quizzes", quizzes);
+        return "quiz/quizzes";
+    }
+
+    @GetMapping("/{id}/quizzes/create")
+    public String createQuiz(@PathVariable Long id, Model model) {
+        String randomName = RandomStringUtils.randomAlphanumeric(10);
+        QuizRequest quiz = new QuizRequest(randomName, 30, id);
+
+        List<CategoryResponse> categories = categoryService.findAll();
+
+        model.addAttribute("quiz", quiz);
+        model.addAttribute("categories", categories);
+        model.addAttribute("action", "/categories/" + id + "/quizzes");
+        model.addAttribute("method", "POST");
+
+        return "quiz/edit-quiz";
+    }
+
+    @PostMapping("/{id}/quizzes")
+    public String addQuiz(@PathVariable Long id, @RequestParam("name") String name, @RequestParam("timeLimit") Integer timeLimit, @RequestParam("categoryId") Long categoryId) {
+        QuizRequest quizRequest = new QuizRequest(name, timeLimit, categoryId);
+        quizService.add(quizRequest);
+
+        return "redirect:/categories/" + id + "/quizzes";
+    }
+
+    @GetMapping("/{id}/quizzes/{quizId}")
+    public String editQuiz(@PathVariable Long id, @PathVariable Long quizId, Model model) {
+        QuizResponse quiz = quizService.findById(quizId);
+        List<CategoryResponse> categories = categoryService.findAll();
+
+        model.addAttribute("quiz", quiz);
+        model.addAttribute("categories", categories);
+        model.addAttribute("method", "PUT");
+        model.addAttribute("action", "/categories/" + id + "/quizzes/" + quizId);
+
+        return "quiz/edit-quiz";
+    }
+
+    @PutMapping("/{id}/quizzes/{quizId}")
+    public String update(@PathVariable Long id, @PathVariable Long quizId, @RequestParam("name") String name, @RequestParam("timeLimit") Integer timeLimit, @RequestParam("categoryId") Long categoryId) {
+        QuizRequest quizRequest = new QuizRequest(name, timeLimit, categoryId);
+        quizService.update(quizId, quizRequest);
+
+        return "redirect:/categories/" + id + "/quizzes";
+    }
+
+    @DeleteMapping("/{id}/quizzes/{quizId}")
+    public String deleteQuizById(@PathVariable Long id, @PathVariable Long quizId) {
+        quizService.deleteById(quizId);
+
+        return "redirect:/categories/" + id + "/quizzes";
     }
 }

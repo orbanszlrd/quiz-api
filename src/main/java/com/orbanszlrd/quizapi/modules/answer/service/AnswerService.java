@@ -36,7 +36,7 @@ public class AnswerService {
         Type type = new TypeToken<List<AnswerResponse>>() {
         }.getType();
 
-        List<Answer> questions = answerRepository.findAll();
+        List<Answer> questions = answerRepository.findByQuestionId(questionId);
 
         return modelMapper.map(questions, type);
     }

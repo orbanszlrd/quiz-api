@@ -27,7 +27,7 @@
                 </a>
             </td>
             <td>
-                <a th:href="@{/categories/{id}(id=${category.getId()})}" type="submit" class="btn btn-link text-dark"
+                <a th:href="@{__${#httpServletRequest.requestURI}__/{id}(id=${category.getId()})}" type="submit" class="btn btn-link text-dark"
                    title="Edit Category">
                     <i class="fas fa-edit"></i>
                 </a>
@@ -42,9 +42,7 @@
         </tr>
     </table>
     <div>
-        <form method="get" action="/categories/create">
-            <button class="btn btn-success" type="submit">Create category</button>
-        </form>
+        <a th:href="@{__${#httpServletRequest.requestURI}__/create}" class="btn btn-success">Create category</a>
     </div>
 </div>
 </div>

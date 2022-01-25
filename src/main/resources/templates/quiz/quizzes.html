@@ -32,13 +32,13 @@
                 </a>
             </td>
             <td>
-                <a th:href="@{/quizzes/{id}(id=${quiz.getId()})}" type="submit" class="btn btn-link text-dark"
+                <a th:href="@{__${#httpServletRequest.requestURI}__/{id}(id=${quiz.getId()})}" type="submit" class="btn btn-link text-dark"
                    title="Edit Quiz"><i
                         class="fas fa-edit"></i>
                 </a>
             </td>
             <td>
-                <form class="form-inline" action="#" th:action="@{/quizzes/{id}(id=${quiz.getId()})}"
+                <form class="form-inline" action="#" th:action="@{__${#httpServletRequest.requestURI}__/{id}(id=${quiz.getId()})}"
                       th:method="DELETE">
                     <button type="submit" class="btn btn-link text-danger" title="Delete Quiz"><i
                             class="fas fa-trash"></i></button>
@@ -47,9 +47,7 @@
         </tr>
     </table>
     <div>
-        <form method="get" action="/quizzes/create">
-            <button class="btn btn-success" type="submit">Create quiz</button>
-        </form>
+        <a th:href="@{__${#httpServletRequest.requestURI}__/create}" class="btn btn-success">Create quiz</a>
     </div>
 </div>
 </div>

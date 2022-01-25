@@ -40,9 +40,7 @@
         </tr>
     </table>
     <div>
-        <form method="get" action="/answers/create">
-            <button class="btn btn-success" type="submit">Create answer</button>
-        </form>
+        <a th:href="@{__${#httpServletRequest.requestURI}__/create}" class="btn btn-success">Create answer</a>
     </div>
 </div>
 </div>
