@@ -2,6 +2,7 @@ package com.orbanszlrd.quizapi.modules.category.controller;
 
 import com.auth0.jwt.algorithms.Algorithm;
 import com.orbanszlrd.quizapi.modules.category.service.CategoryService;
+import com.orbanszlrd.quizapi.modules.quiz.service.QuizService;
 import com.orbanszlrd.quizapi.modules.user.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ class CategoryControllerTest {
 
     @MockBean
     private CategoryService categoryService;
+
+    @MockBean
+    private QuizService quizService;
 
     @MockBean
     private UserService userService;

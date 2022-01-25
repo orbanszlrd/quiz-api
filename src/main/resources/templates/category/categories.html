@@ -14,6 +14,7 @@
         <tr>
             <th scope="col" style="width:10%">Id</th>
             <th scope="col">Name</th>
+            <th scope="col" style="width:10%">Quizzes</th>
             <th scope="col" style="width:10%">Edit</th>
             <th scope="col" style="width:10%">Delete</th>
         </tr>
@@ -21,12 +22,15 @@
             <td style="vertical-align: middle;" th:text="${category.getId()}"></td>
             <td style="vertical-align: middle;" th:text="${category.getName()}"></td>
             <td>
-                <form class="form-inline" action="#" th:action="@{/categories/{id}(id=${category.getId()})}"
-                      th:method="GET">
-                    <button type="submit" class="btn btn-link text-dark" title="Edit Category"><i
-                            class="fas fa-edit"></i>
-                    </button>
-                </form>
+                <a th:href="@{/categories/{id}/quizzes(id=${category.getId()})}" type="submit"
+                   class="btn btn-link text-dark" title="List Quizzes"><i class="fas fa-list"></i>
+                </a>
+            </td>
+            <td>
+                <a th:href="@{/categories/{id}(id=${category.getId()})}" type="submit" class="btn btn-link text-dark"
+                   title="Edit Category">
+                    <i class="fas fa-edit"></i>
+                </a>
             </td>
             <td>
                 <form class="form-inline" action="#" th:action="@{/categories/{id}(id=${category.getId()})}"

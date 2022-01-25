@@ -32,6 +32,15 @@ public class QuizService {
         return modelMapper.map(categories, type);
     }
 
+    public List<QuizResponse> findByCategoryId(Long categoryId) {
+        Type type = new TypeToken<List<QuizResponse>>() {
+        }.getType();
+
+        List<Quiz> categories = quizRepository.findByCategoryId(categoryId);
+
+        return modelMapper.map(categories, type);
+    }
+
     public QuizResponse findById(Long id) {
         Quiz quiz = quizRepository.findById(id).orElseThrow(() -> new QuizNotFoundException(id));
         return modelMapper.map(quiz, QuizResponse.class);

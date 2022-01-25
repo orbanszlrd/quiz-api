@@ -1,5 +1,7 @@
 package com.orbanszlrd.quizapi.modules.question.controller;
 
+import com.orbanszlrd.quizapi.modules.answer.model.dto.AnswerResponse;
+import com.orbanszlrd.quizapi.modules.answer.service.AnswerService;
 import com.orbanszlrd.quizapi.modules.question.model.dto.QuestionRequest;
 import com.orbanszlrd.quizapi.modules.question.model.dto.QuestionResponse;
 import com.orbanszlrd.quizapi.modules.question.service.QuestionService;
@@ -19,6 +21,7 @@ import java.util.List;
 public class QuestionController {
     private final QuestionService questionService;
     private final QuizService quizService;
+    private final AnswerService answerService;
 
     @GetMapping("")
     public String findAll(Model model) {
@@ -39,6 +42,13 @@ public class QuestionController {
         model.addAttribute("method", "POST");
 
         return "question/edit-question";
+    }
+
+    @GetMapping("/{id}/answers")
+    public String answers(@PathVariable Long id, Model model) {
+        List<AnswerResponse> answers = answerService.findByQuestionId(id);
+        model.addAttribute("answers", answers);
+        return "answer/answers";
     }
 
     @GetMapping("/{id}")

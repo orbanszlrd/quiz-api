@@ -17,6 +17,7 @@
             <th scope="col">Time Limit</th>
             <th scope="col">Value</th>
             <th scope="col">Quiz</th>
+            <th scope="col" style="width:10%">Answers</th>
             <th scope="col" style="width:10%">Edit</th>
             <th scope="col" style="width:10%">Delete</th>
         </tr>
@@ -27,12 +28,15 @@
             <td style="vertical-align: middle;" th:text="${question.getValue()}"></td>
             <td style="vertical-align: middle;" th:text="${question.getQuizName()}"></td>
             <td>
-                <form class="form-inline" action="#" th:action="@{/questions/{id}(id=${question.getId()})}"
-                      th:method="GET">
-                    <button type="submit" class="btn btn-link text-dark" title="Edit Question"><i
-                            class="fas fa-edit"></i>
-                    </button>
-                </form>
+                <a th:href="@{/questions/{id}/answers(id=${question.getId()})}" type="submit"
+                   class="btn btn-link text-dark" title="List Answers"><i
+                        class="fas fa-list"></i>
+                </a>
+            </td>
+            <td>
+                <a th:href="@{/questions/{id}(id=${question.getId()})}" type="submit" class="btn btn-link text-dark" title="Edit Question"><i
+                        class="fas fa-edit"></i>
+                </a>
             </td>
             <td>
                 <form class="form-inline" action="#" th:action="@{/questions/{id}(id=${question.getId()})}"

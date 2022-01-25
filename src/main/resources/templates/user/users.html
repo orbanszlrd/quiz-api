@@ -27,11 +27,9 @@
             <td style="vertical-align: middle;" th:text="${user.getRole()}"></td>
             <td style="vertical-align: middle;" th:text="${user.isEnabled()}"></td>
             <td>
-                <form class="form-inline" action="#" th:action="@{/users/{id}/edit(id=${user.getId()})}"
-                      th:method="GET">
-                    <button type="submit" class="btn btn-link text-dark" title="Edit User"><i class="fas fa-edit"></i>
-                    </button>
-                </form>
+                <a th:href="@{/users/{id}(id=${user.getId()})}" type="submit" class="btn btn-link text-dark"
+                   title="Edit User"><i class="fas fa-edit"></i>
+                </a>
             </td>
             <td>
                 <form class="form-inline" action="#" th:action="@{/users/{id}(id=${user.getId()})}" th:method="DELETE">

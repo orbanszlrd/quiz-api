@@ -27,9 +27,28 @@ public class AnswerService {
         Type type = new TypeToken<List<AnswerResponse>>() {
         }.getType();
 
-        List<Answer> questionzes = answerRepository.findAll();
+        List<Answer> questions = answerRepository.findAll();
 
-        return modelMapper.map(questionzes, type);
+        return modelMapper.map(questions, type);
+    }
+
+    public List<AnswerResponse> findByQuestionId(Long questionId) {
+        Type type = new TypeToken<List<AnswerResponse>>() {
+        }.getType();
+
+        List<Answer> questions = answerRepository.findAll();
+
+        return modelMapper.map(questions, type);
+    }
+
+    public List<AnswerResponse> findCorrectAnswersByQuestionId(Long questionId) {
+        Type type = new TypeToken<List<AnswerResponse>>() {
+        }.getType();
+
+        List<Answer> questions = answerRepository.findCorrectAnswersByQuestionId(questionId);
+
+        return modelMapper.map(questions, type);
+
     }
 
     public AnswerResponse findById(Long id) {

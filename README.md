@@ -2,6 +2,7 @@
 
 [![Java CI with Maven](https://github.com/orbanszlrd/quiz-api/actions/workflows/maven.yml/badge.svg)](https://github.com/orbanszlrd/quiz-api/actions/workflows/maven.yml)
 [![CodeQL](https://github.com/orbanszlrd/quiz-api/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/orbanszlrd/quiz-api/actions/workflows/codeql-analysis.yml)
+[![Github All Releases](https://img.shields.io/github/downloads/orbanszlrd/quiz-api/total.svg)]()
 
 ## Description
 

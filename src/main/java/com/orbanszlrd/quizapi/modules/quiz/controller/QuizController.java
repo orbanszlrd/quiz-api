@@ -2,6 +2,8 @@ package com.orbanszlrd.quizapi.modules.quiz.controller;
 
 import com.orbanszlrd.quizapi.modules.category.model.dto.CategoryResponse;
 import com.orbanszlrd.quizapi.modules.category.service.CategoryService;
+import com.orbanszlrd.quizapi.modules.question.model.dto.QuestionResponse;
+import com.orbanszlrd.quizapi.modules.question.service.QuestionService;
 import com.orbanszlrd.quizapi.modules.quiz.model.Quiz;
 import com.orbanszlrd.quizapi.modules.quiz.model.dto.QuizRequest;
 import com.orbanszlrd.quizapi.modules.quiz.model.dto.QuizResponse;
@@ -20,6 +22,7 @@ import java.util.List;
 public class QuizController {
     private final QuizService quizService;
     private final CategoryService categoryService;
+    private final QuestionService questionService;
 
     @GetMapping("")
     public String findAll(Model model) {
@@ -40,6 +43,13 @@ public class QuizController {
         model.addAttribute("method", "POST");
 
         return "quiz/edit-quiz";
+    }
+
+    @GetMapping("/{id}/questions")
+    public String questions(@PathVariable Long id, Model model) {
+        List<QuestionResponse> questions = questionService.findByQuizId(id);
+        model.addAttribute("questions", questions);
+        return "question/questions";
     }
 
     @GetMapping("/{id}")
