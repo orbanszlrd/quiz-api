@@ -62,7 +62,6 @@ public class ImportService {
             Answer a4 = new Answer(4L, "None of the mentioned", false, q1);
             answerRepository.save(a4);
 
-
         };
     }
 }
