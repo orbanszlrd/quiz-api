@@ -22,7 +22,7 @@
         </tr>
         <tr th:each="quiz: ${quizzes}">
             <td style="vertical-align: middle;" th:text="${quiz.getId()}"></td>
-            <td style="vertical-align: middle;" th:text="${quiz.getName()}"></td>
+            <td style="vertical-align: middle;"><a th:text="${quiz.getName()}" th:href="@{/user/quiz/{id}(id=${quiz.getId()})}" class="link-success" title="Take this quiz"></a></td>
             <td style="vertical-align: middle;" th:text="${quiz.getTimeLimit()}"></td>
             <td style="vertical-align: middle;" th:text="${quiz.getCategoryName()}"></td>
             <td>

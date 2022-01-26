@@ -9,6 +9,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Collections;
 import java.util.List;
 
 @Data
@@ -53,5 +54,10 @@ public class Question {
         this.timeLimit = timeLimit;
         this.value = value;
         this.quiz = quiz;
+    }
+
+    public List<Answer> getAnswers() {
+        Collections.shuffle(answers);
+        return answers;
     }
 }

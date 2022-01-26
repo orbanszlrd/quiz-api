@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <title>Quiz API: User Quiz</title>
+  <header th:insert="fragments/general.html :: head"></header>
+</head>
+<body>
+<header th:insert="fragments/general.html :: navigation"></header>
+
+<h3 th:text="${quiz.getCategoryName() + ': ' + quiz.getName()}" class="text-center p-2"></h3>
+
+<div class="container">
+  <h4 th:text="'You have ' + ${result} + ' correct answers'" class="text-center p2"></h4>
+</div>
+
+</body>
+</html>

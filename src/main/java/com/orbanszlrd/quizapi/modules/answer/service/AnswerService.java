@@ -41,6 +41,15 @@ public class AnswerService {
         return modelMapper.map(questions, type);
     }
 
+    public List<AnswerResponse> findByQuizId(Long quizId) {
+        Type type = new TypeToken<List<AnswerResponse>>() {
+        }.getType();
+
+        List<Answer> questions = answerRepository.findByQuizId(quizId);
+
+        return modelMapper.map(questions, type);
+    }
+
     public List<AnswerResponse> findCorrectAnswersByQuestionId(Long questionId) {
         Type type = new TypeToken<List<AnswerResponse>>() {
         }.getType();

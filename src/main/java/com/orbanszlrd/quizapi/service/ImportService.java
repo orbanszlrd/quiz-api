@@ -37,8 +37,8 @@ public class ImportService {
         return args -> {
             countryImportService.fillDatabase();
 
-            createDummyItQuizzes();
-            createDummyGeographyQuizzes();
+//            createDummyItQuizzes();
+//            createDummyGeographyQuizzes();
         };
     }
 
