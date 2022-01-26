@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>userquiz</title>
+</head>
+<body>
+    <h3 th:text="${quiz.getName()}"></h3>
+    <div th:text="${quiz.getCategoryName()}"></div>
+
+    <div th:each="question : ${questions}">
+        <div th:text="${question.getText()}"></div>
+
+        <div th:each="answer : ${answers}">
+            <input type="radio" name="question" value="1"><label th:text="${answer.getText()}"></label>
+        </div>
+    </div>
+
+</body>
+</html>
