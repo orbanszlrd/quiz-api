@@ -48,31 +48,44 @@ public class ImportService {
         List<Country> countries = countryRepository.findAll().stream().filter(country -> country.getCapital() != null).collect(Collectors.toList());
         Collections.shuffle(countries);
 
-        int nr = 0;
-
-        Quiz quiz= new Quiz();
+        Quiz countriesQuiz = quizRepository.save(new Quiz("Countries", 30, category));
+        Quiz capitalsQuiz = quizRepository.save(new Quiz("Capitals", 30, category));
+        Quiz areasQuiz = quizRepository.save(new Quiz("Areas", 30, category));
+        Quiz populationQuiz = quizRepository.save(new Quiz("Population", 30, category));
 
         for (int i = 0; i < countries.size(); i++) {
             Country country = countries.get(i);
 
-            if (i % 20 == 0) {
-                quiz = quizRepository.save(new Quiz("Capitals " + ++nr, 30, category));
-            }
+            Question countryQuestion = questionRepository.save(new Question("Which country's capital is " + country.getCapital() + "? The country is part of " + country.getRegion(), 1, (byte) 1, countriesQuiz));
+            answerRepository.save(new Answer(country.getName(), true, countryQuestion));
 
-            Question question = questionRepository.save(new Question("What is the capital of " + country.getName() + "?", 1, (byte) 1, quiz));
-            answerRepository.save(new Answer(country.getCapital(), true, question));
+            Question capitalQuestion = questionRepository.save(new Question("What is the capital of " + country.getName() + "?", 1, (byte) 1, capitalsQuiz));
+            answerRepository.save(new Answer(country.getCapital(), true, capitalQuestion));
 
-            for (int j=0; j<3; j++) {
-                int randomIndex;
+            Question areaQuestion = questionRepository.save(new Question("What is the area of " + country.getName() + "?", 1, (byte) 1, areasQuiz));
+            answerRepository.save(new Answer(String.valueOf(country.getArea()), true, areaQuestion));
 
-                do  {
-                    randomIndex = (int)(Math.random() * countries.size());
+            Question populationQuestion = questionRepository.save(new Question("What is the population of " + country.getName() + "?", 1, (byte) 1, populationQuiz));
+            answerRepository.save(new Answer(String.valueOf(country.getPopulation()), true, populationQuestion));
 
-                } while (randomIndex == i);
-
-                answerRepository.save(new Answer(countries.get(randomIndex).getCapital(), false, question));
+            for (int j = 0; j < 3; j++) {
+                answerRepository.save(new Answer(countries.get(getRandomIndex(i, countries)).getName(), false, countryQuestion));
+                answerRepository.save(new Answer(countries.get(getRandomIndex(i, countries)).getCapital(), false, capitalQuestion));
+                answerRepository.save(new Answer(String.valueOf(countries.get(getRandomIndex(i, countries)).getArea()), false, areaQuestion));
+                answerRepository.save(new Answer(String.valueOf(countries.get(getRandomIndex(i, countries)).getPopulation()), false, populationQuestion));
             }
         }
+    }
+
+    private int getRandomIndex(int currentIndex, Collection collection) {
+        int randomIndex;
+
+        do {
+            randomIndex = (int) (Math.random() * collection.size());
+
+        } while (randomIndex == currentIndex);
+
+        return randomIndex;
     }
 
     private void createDummyItQuizzes() {
