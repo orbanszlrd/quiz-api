@@ -7,17 +7,17 @@
 <body>
 <header th:insert="fragments/general.html :: navigation"></header>
 
-<h3 th:text="${quiz.getCategoryName() + ': ' + quiz.getName()}" class="text-center p-2"></h3>
+<h3 th:text="${quizName}" class="text-center p-2"></h3>
 
 <div class="container">
-    <form th:action="${action}" method="post">
+    <form th:action="${#httpServletRequest.requestURI}" method="post">
         <div th:each="question, iterator : ${questions}" class="m-2 p-2">
             <div th:text="${iterator.index + 1} + '. ' + ${question.getText()}" class="p-1 fw-bold"></div>
 
             <div th:each="answer : ${question.getAnswers()}" class="p-1">
-                <input type="radio" th:id="'answer_' + ${answer.getId()}" th:name="'question_' + ${question.getId()}"
+                <input type="radio" th:id="'answer-' + ${answer.getId()}" th:name="'q:' + ${question.getId()}"
                        th:value="${answer.getId()}" class="p-1" style="cursor:pointer;">
-                <label th:for="'answer_' + ${answer.getId()}" th:text="${answer.getText()}" class="p-1" style="cursor:pointer;"></label>
+                <label th:for="'answer-' + ${answer.getId()}" th:text="${answer.getText()}" class="p-1" style="cursor:pointer;"></label>
             </div>
         </div>
         <div class="m-2 p-2">

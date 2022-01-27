@@ -2,57 +2,97 @@ package com.orbanszlrd.quizapi.modules.userquiz;
 
 import com.orbanszlrd.quizapi.modules.answer.service.AnswerService;
 import com.orbanszlrd.quizapi.modules.question.model.Question;
-import com.orbanszlrd.quizapi.modules.question.repository.QuestionRepository;
-import com.orbanszlrd.quizapi.modules.quiz.model.dto.QuizResponse;
-import com.orbanszlrd.quizapi.modules.quiz.service.QuizService;
+import com.orbanszlrd.quizapi.modules.question.service.QuestionService;
+import com.orbanszlrd.quizapi.modules.useranswer.UserAnswer;
+import com.orbanszlrd.quizapi.modules.useranswer.UserAnswerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
+import java.security.Principal;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/user/quiz")
+@RequestMapping("/user/quizzes")
 public class UserQuizController {
-    private final QuizService quizService;
+    private final UserQuizService userQuizService;
+    private final UserAnswerService userAnswerService;
+    private final QuestionService questionService;
     private final AnswerService answerService;
 
-    private final QuestionRepository questionRepository;
+    @GetMapping("")
+    public String findByUser(Model model, Principal principal) {
+        List<UserQuiz> userQuizzes = userQuizService.findByUser(principal);
+
+        model.addAttribute("userQuizzes", userQuizzes);
+
+        return "user_quiz/list";
+    }
+
+    @PostMapping("")
+    public String create(@RequestParam Long quizId, Principal principal) {
+        List<Question> questions = questionService.findRandomByQuizId(quizId);
+
+        UserQuiz userQuiz = userQuizService.start(principal, quizId, questions);
+
+        return "redirect:/user/quizzes/" + userQuiz.getId();
+    }
 
     @GetMapping("/{id}")
-    public String quiz(@PathVariable Long id, Model model) {
-        QuizResponse quiz = quizService.findById(id);
-        List<Question> questions = questionRepository.findAnswersByQuizId(id);
-        Collections.shuffle(questions);
+    public String edit(@PathVariable Long id, Model model) {
+        UserQuiz userQuiz = userQuizService.findById(id);
 
-        questions = questions.size() > 20 ? questions.subList(0, 20) : questions;
+        if (Timestamp.valueOf(LocalDateTime.now()).getTime() - userQuiz.getCreatedAt().getTime() > userQuiz.getQuiz().getTimeLimit() * 60 * 1000) {
+            userQuiz.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
+            userQuizService.update(id, userQuiz);
+        }
 
-        model.addAttribute("quiz", quiz);
-        model.addAttribute("questions", questions);
-        model.addAttribute("action", "/user/quiz/" + id);
+        if (userQuiz.getUpdatedAt() != null) {
+            List<UserAnswer> userAnswers = userAnswerService.findByUserQuizId(id);
 
-        return "userquiz/index";
+            int count = userAnswers.size();
+            long correct = userAnswers.stream().filter(userAnswer -> userAnswer.getAnswer() != null && userAnswer.getAnswer().isCorrect()).count();
+            long unanswered = userAnswers.stream().filter(userAnswer -> userAnswer.getAnswer() == null).count();
+
+            model.addAttribute("quizName", userQuiz.getQuiz().getName());
+            model.addAttribute("count", count);
+            model.addAttribute("correct", correct);
+            model.addAttribute("unanswered", unanswered);
+
+            return "user_quiz/result";
+        } else {
+            List<Question> questions = questionService.findByUserQuizId(id);
+
+            model.addAttribute("quizName", userQuiz.getQuiz().getName());
+            model.addAttribute("questions", questions);
+
+            return "user_quiz/index";
+        }
     }
 
     @PostMapping("/{id}")
-    public String quiz(@PathVariable Long id, @RequestParam Map<String, String> requestParams, Model model) {
-        QuizResponse quiz = quizService.findById(id);
+    public String update(@PathVariable Long id, @RequestParam Map<String, String> requestParams, Model model) {
+        UserQuiz userQuiz = userQuizService.findById(id);
+        userQuiz.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
+        userQuizService.update(id, userQuiz);
 
         int result = 0;
 
-        for (String answerId : requestParams.values()) {
-            if (answerService.findById(Long.valueOf(answerId)).isCorrect()) {
+        for (Map.Entry<String, String> entry : requestParams.entrySet()) {
+            Long questionId = Long.valueOf(entry.getKey().substring(2));
+            Long answerId = Long.valueOf(entry.getValue());
+            userAnswerService.update(id, questionId, answerId);
+
+            if (answerService.findById(answerId).isCorrect()) {
                 result++;
             }
         }
 
-        model.addAttribute("quiz", quiz);
-        model.addAttribute("result", result);
-
-        return "userquiz/result";
+        return "redirect:/user/quizzes/" + userQuiz.getId();
     }
 }

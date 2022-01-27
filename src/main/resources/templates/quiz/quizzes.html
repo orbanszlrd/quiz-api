@@ -22,7 +22,12 @@
         </tr>
         <tr th:each="quiz: ${quizzes}">
             <td style="vertical-align: middle;" th:text="${quiz.getId()}"></td>
-            <td style="vertical-align: middle;"><a th:text="${quiz.getName()}" th:href="@{/user/quiz/{id}(id=${quiz.getId()})}" class="link-success" title="Take this quiz"></a></td>
+            <td style="vertical-align: middle;">
+                <form action="/user/quizzes" method="post">
+                    <input type="hidden" name="quizId" th:value="${quiz.getId()}">
+                    <button type="submit" th:text="${quiz.getName()}" class="btn btn-link link-success" title="Take this quiz"></button>
+                </form>
+            </td>
             <td style="vertical-align: middle;" th:text="${quiz.getTimeLimit()}"></td>
             <td style="vertical-align: middle;" th:text="${quiz.getCategoryName()}"></td>
             <td>
@@ -49,7 +54,6 @@
     <div>
         <a th:href="@{__${#httpServletRequest.requestURI}__/create}" class="btn btn-success">Create quiz</a>
     </div>
-</div>
 </div>
 
 </body>

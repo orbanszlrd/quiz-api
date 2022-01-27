@@ -15,4 +15,7 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
 
     @Query("SELECT DISTINCT q FROM Answer a JOIN a.question q WHERE q.quiz.id = :quizId")
     List<Question> findAnswersByQuizId(@Param("quizId") Long quizId);
+
+    @Query("SELECT DISTINCT ua.question FROM UserAnswer ua JOIN ua.question q JOIN q.answers WHERE ua.userQuiz.id = :userQuizId")
+    List<Question> findByUserQuizId(Long userQuizId);
 }

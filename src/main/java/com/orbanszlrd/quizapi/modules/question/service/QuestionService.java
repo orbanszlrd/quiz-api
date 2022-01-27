@@ -14,6 +14,7 @@ import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -64,5 +65,18 @@ public class QuestionService {
 
     public long count() {
         return questionRepository.count();
+    }
+
+    public List<Question> findRandomByQuizId(Long id) {
+        List<Question> questions = questionRepository.findAnswersByQuizId(id);
+        Collections.shuffle(questions);
+
+        questions = questions.size() > 20 ? questions.subList(0, 20) : questions;
+
+        return questions;
+    }
+
+    public List<Question> findByUserQuizId(Long userQuizId) {
+        return questionRepository.findByUserQuizId(userQuizId);
     }
 }

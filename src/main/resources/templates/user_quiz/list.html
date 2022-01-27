@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Quiz API: User Quiz List</title>
+    <header th:insert="fragments/general.html :: head"></header>
+</head>
+<body>
+<header th:insert="fragments/general.html :: navigation"></header>
+
+<h3 text="List of your Quizzes" class="text-center p-2"></h3>
+
+<div class="container-fluid">
+    <table th:if="${userQuizzes.size() > 0}" class="table">
+        <tr>
+            <th scope="col" style="width:10%">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Category</th>
+            <th scope="col">Time Limit</th>
+            <th scope="col">Started</th>
+            <th scope="col">Finished</th>
+            <th scope="col" style="width:10%">Details</th>
+        </tr>
+        <tr th:each="userQuiz: ${userQuizzes}">
+            <td style="vertical-align: middle;" th:text="${userQuiz.getId()}"></td>
+            <td style="vertical-align: middle;" th:text="${userQuiz.getQuiz().getName()}"></td>
+            <td style="vertical-align: middle;" th:text="${userQuiz.getQuiz().getCategory().getName()}"></td>
+            <td style="vertical-align: middle;" th:text="${userQuiz.getQuiz().getTimeLimit()}"></td>
+            <td style="vertical-align: middle;" th:text="${userQuiz.getCreatedAt()}"></td>
+            <td style="vertical-align: middle;" th:text="${userQuiz.getUpdatedAt()}"></td>
+            <td>
+                <a th:href="@{__${#httpServletRequest.requestURI}__/{id}(id=${userQuiz.getId()})}" type="submit" class="btn btn-link text-dark"
+                   title="Edit UserQuiz"><i
+                        class="fas fa-edit"></i>
+                </a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

@@ -7,10 +7,11 @@
 <body>
 <header th:insert="fragments/general.html :: navigation"></header>
 
-<h3 th:text="${quiz.getCategoryName() + ': ' + quiz.getName()}" class="text-center p-2"></h3>
+<h3 th:text="${quizName}" class="text-center p-2"></h3>
 
 <div class="container">
-  <h4 th:text="'You have ' + ${result} + ' correct answers'" class="text-center p2"></h4>
+  <h4 th:text="'You have ' + ${correct} + ' correct answers  from ' + ${count} + '  questions.'" class="text-center p2"></h4>
+  <div th:text="'You have ' + ${unanswered} + ' unanswered questions.'" class="text-center"></div>
 </div>
 
 </body>
