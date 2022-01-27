@@ -36,7 +36,7 @@ class UserControllerTest {
     private Algorithm algorithm;
 
     @Test
-    @WithMockUser(roles = "USER")
+    @WithMockUser(roles = "ADMIN")
     void findAll() throws Exception {
         when(userService.findAll()).thenReturn(List.of(new UserResponse(1L, "user", "user@email.com", true, Role.USER)));
 
