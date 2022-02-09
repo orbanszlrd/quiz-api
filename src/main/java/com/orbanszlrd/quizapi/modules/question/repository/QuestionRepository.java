@@ -1,5 +1,6 @@
 package com.orbanszlrd.quizapi.modules.question.repository;
 
+import com.orbanszlrd.quizapi.modules.answer.model.Answer;
 import com.orbanszlrd.quizapi.modules.question.model.Question;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -10,6 +11,9 @@ import java.util.List;
 
 @Repository
 public interface QuestionRepository extends JpaRepository<Question, Long> {
+    @Query("SELECT qu FROM Question qu JOIN FETCH qu.quiz qz JOIN FETCH qz.category")
+    List<Question> findAll();
+
     @Query("SELECT q FROM Question q WHERE q.quiz.id = :quizId")
     List<Question> findByQuizId(@Param("quizId") Long quizId);
 
