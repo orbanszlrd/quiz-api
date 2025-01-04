@@ -77,7 +77,11 @@ public class ImportService {
         }
     }
 
-    private int getRandomIndex(int currentIndex, Collection collection) {
+    private <T> int getRandomIndex(int currentIndex, Collection<T> collection) {
+        if (collection == null || collection.isEmpty()) {
+            throw new IllegalArgumentException("The collection must not be null or empty.");
+        }
+
         int randomIndex;
 
         do {

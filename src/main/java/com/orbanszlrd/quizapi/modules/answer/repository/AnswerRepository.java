@@ -5,12 +5,15 @@ import com.orbanszlrd.quizapi.modules.question.model.Question;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
 public interface AnswerRepository extends JpaRepository<Answer, Long> {
+    @Override
+    @NonNull
     @Query("SELECT a FROM Answer a JOIN FETCH a.question qu JOIN FETCH qu.quiz qz JOIN FETCH qz.category")
     List<Answer> findAll();
 
