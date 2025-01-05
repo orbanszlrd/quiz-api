@@ -2,10 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title>Quiz API: Categories</title>
-    <header th:insert="fragments/general.html :: head"></header>
+    <th:block th:insert="~{fragments/general.html :: head}"></th:block>
 </head>
 <body>
-<header th:insert="fragments/general.html :: navigation"></header>
+<th:block th:insert="~{fragments/general.html :: navigation}"></th:block>
 
 <h3 class="text-center p-2"><span th:text="${categories.size()}"></span> Categories</h3>
 
@@ -27,7 +27,7 @@
                 </a>
             </td>
             <td>
-                <a th:href="@{__${#httpServletRequest.requestURI}__/{id}(id=${category.getId()})}" type="submit" class="btn btn-link text-dark"
+                <a th:href="@{__${requestURI}__/{id}(id=${category.getId()})}" type="submit" class="btn btn-link text-dark"
                    title="Edit Category">
                     <i class="fas fa-edit"></i>
                 </a>
@@ -42,7 +42,7 @@
         </tr>
     </table>
     <div>
-        <a th:href="@{__${#httpServletRequest.requestURI}__/create}" class="btn btn-success">Create category</a>
+        <a th:href="@{__${requestURI}__/create}" class="btn btn-success">Create category</a>
     </div>
 </div>
 

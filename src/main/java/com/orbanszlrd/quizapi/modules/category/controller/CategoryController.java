@@ -4,6 +4,7 @@ import com.orbanszlrd.quizapi.modules.category.model.Category;
 import com.orbanszlrd.quizapi.modules.category.model.dto.CategoryRequest;
 import com.orbanszlrd.quizapi.modules.category.model.dto.CategoryResponse;
 import com.orbanszlrd.quizapi.modules.category.service.CategoryService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Controller;
@@ -19,8 +20,10 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @GetMapping("")
-    public String findAll(Model model) {
+    public String findAll(Model model, HttpServletRequest request) {
         List<CategoryResponse> categories = categoryService.findAll();
+
+        model.addAttribute("requestURI", request.getRequestURI());
         model.addAttribute("categories", categories);
         return "category/categories";
     }

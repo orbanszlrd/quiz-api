@@ -1,13 +1,12 @@
 package com.orbanszlrd.quizapi.modules.category.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.orbanszlrd.quizapi.modules.quiz.model.Quiz;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
 

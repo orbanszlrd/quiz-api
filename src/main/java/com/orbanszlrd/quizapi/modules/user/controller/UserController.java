@@ -6,6 +6,7 @@ import com.orbanszlrd.quizapi.modules.user.model.dto.InsertUserRequest;
 import com.orbanszlrd.quizapi.modules.user.model.dto.UpdateUserRequest;
 import com.orbanszlrd.quizapi.modules.user.model.dto.UserResponse;
 import com.orbanszlrd.quizapi.modules.user.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,9 +22,10 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("")
-    public String findAll(Model model) {
+    public String findAll(Model model, HttpServletRequest request) {
         List<UserResponse> users = userService.findAll();
 
+        model.addAttribute("requestURI", request.getRequestURI());
         model.addAttribute("users", users);
 
         return "user/users";
@@ -31,7 +33,7 @@ public class UserController {
 
     @GetMapping("/create")
     public String create(Model model) {
-        Long postfix = userService.count() + 1;
+        long postfix = userService.count() + 1;
 
         UserResponse user = new UserResponse();
         user.setUsername("user" + postfix);

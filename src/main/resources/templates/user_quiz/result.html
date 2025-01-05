@@ -2,10 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
   <title>Quiz API: User Quiz</title>
-  <header th:insert="fragments/general.html :: head"></header>
+  <th:block th:insert="~{fragments/general.html :: head}"></th:block>
 </head>
 <body>
-<header th:insert="fragments/general.html :: navigation"></header>
+<th:block th:insert="~{fragments/general.html :: navigation}"></th:block>
 
 <h3 th:text="${quizName}" class="text-center p-2"></h3>
 

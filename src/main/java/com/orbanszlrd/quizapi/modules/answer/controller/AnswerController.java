@@ -5,6 +5,7 @@ import com.orbanszlrd.quizapi.modules.answer.model.dto.AnswerResponse;
 import com.orbanszlrd.quizapi.modules.answer.service.AnswerService;
 import com.orbanszlrd.quizapi.modules.question.service.QuestionService;
 import com.orbanszlrd.quizapi.modules.question.model.dto.QuestionResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Controller;
@@ -21,15 +22,19 @@ public class AnswerController {
     private final QuestionService questionService;
 
     @GetMapping("/answers")
-    public String findAll(Model model) {
+    public String findAll(Model model, HttpServletRequest request) {
         List<AnswerResponse> answers = answerService.findAll();
+
+        model.addAttribute("requestURI", request.getRequestURI());
         model.addAttribute("answers", answers);
         return "answer/answers";
     }
 
     @GetMapping("/questions/{parentId}/answers")
-    public String findByQuestionId(@PathVariable Long parentId, Model model) {
+    public String findByQuestionId(@PathVariable Long parentId, Model model, HttpServletRequest request) {
         List<AnswerResponse> answers = answerService.findByQuestionId(parentId);
+
+        model.addAttribute("requestURI", request.getRequestURI());
         model.addAttribute("answers", answers);
         return "answer/answers";
     }

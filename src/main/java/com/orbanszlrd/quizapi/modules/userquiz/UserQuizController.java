@@ -5,6 +5,7 @@ import com.orbanszlrd.quizapi.modules.question.model.Question;
 import com.orbanszlrd.quizapi.modules.question.service.QuestionService;
 import com.orbanszlrd.quizapi.modules.useranswer.UserAnswer;
 import com.orbanszlrd.quizapi.modules.useranswer.UserAnswerService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,9 +27,10 @@ public class UserQuizController {
     private final AnswerService answerService;
 
     @GetMapping("")
-    public String findByUser(Model model, Principal principal) {
+    public String findByUser(Model model, Principal principal, HttpServletRequest request) {
         List<UserQuiz> userQuizzes = userQuizService.findByUser(principal);
 
+        model.addAttribute("requestURI", request.getRequestURI());
         model.addAttribute("userQuizzes", userQuizzes);
 
         return "user_quiz/list";
