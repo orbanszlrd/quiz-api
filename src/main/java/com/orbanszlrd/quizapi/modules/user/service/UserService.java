@@ -7,6 +7,7 @@ import com.orbanszlrd.quizapi.modules.user.model.dto.InsertUserRequest;
 import com.orbanszlrd.quizapi.modules.user.model.dto.UserResponse;
 import com.orbanszlrd.quizapi.modules.user.model.dto.UpdateUserRequest;
 import com.orbanszlrd.quizapi.modules.user.error.UserNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -20,6 +21,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
 @Service
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
